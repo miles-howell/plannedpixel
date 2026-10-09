@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-6P5LRT54KQ"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-6P5LRT54KQ');
+</script>
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ClaimTracker · Miles Howell · Planned Pixel</title>
+<meta name="description" content="A Django rebuild of a legacy healthcare claims viewer. Reads EDI 837 claims and renders print-accurate UB-04 and CMS-1500 forms, with PDF, Word and CSV export.">
+<meta name="theme-color" content="#04051a">
+<meta property="og:title" content="ClaimTracker · Miles Howell · Planned Pixel">
+<meta property="og:description" content="A Django rebuild of a legacy healthcare claims viewer. Reads EDI 837 claims and renders print-accurate UB-04 and CMS-1500 forms, with PDF, Word and CSV export.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://plannedpixel.com/projects/claimtracker.html">
+<link rel="icon" href="../img/favicon.ico" sizes="any">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Silkscreen:wght@400;700&amp;display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/style.css">
+</head>
+<body data-ring="claimtracker" data-root="../">
+<a class="skip" href="#main">Skip to content</a>
+<div class="wrap">
+
+<header class="panel site-head compact">
+<div class="kicker">~*~ stop 3 of 14 on the planned pixel ring ~*~</div>
+<p class="site-title"><a href="../index.html">MILES HOWELL</a></p>
+</header>
+
+<main id="main" class="panel panel-pad" data-updated="2026-10-09">
+<p class="crumbs"><a href="../index.html">home</a> » <a href="../index.html#workshop">the workshop</a> » ClaimTracker</p>
+<div class="card-head" style="margin-top: 18px"><p class="project-kind">Healthcare · legacy replacement</p><span class="new" hidden>NEW!</span></div>
+<h1 class="project-title">ClaimTracker</h1>
+<p class="project-lede">A Django rebuild of a legacy healthcare claims viewer. Reads EDI 837 claims and renders print-accurate UB-04 and CMS-1500 forms, with PDF, Word and CSV export.</p>
+<dl class="facts">
+<div><dt>access:</dt><dd class="access-private">private · work</dd></div>
+<div><dt>year:</dt><dd>2026</dd></div>
+<div><dt>built with:</dt><dd>Django, SQL Server, X12 EDI, Playwright</dd></div>
+</dl>
+<div class="project-body">
+<p>A replacement for an aging internal claims viewer that nobody had documentation for. Healthcare claims arrive as X12 EDI 837 files, both institutional (837I) and professional (837P), and get parsed into a SQL Server database. ClaimTracker reads them back out and shows each claim the way people actually know it: as a UB-04 or CMS-1500 form.</p>
+<p>The forms are print-accurate, down to the real numbered-box layout. Staff can browse by date, provider or member, or search directly, see the claim’s live adjudication status, and export the open claim as a PDF, a Word document or a CSV.</p>
+<p>Most of the work was reading the old system closely enough to reproduce what it actually did, not what anyone remembered it doing.</p>
+</div>
+<h2 class="h2">~ highlights ~</h2>
+<ul class="highlights">
+<li>Feature parity with the legacy viewer: search, browse and the real form layouts</li>
+<li>Live adjudication status for the selected claim</li>
+<li>PDF, Word (.docx) and CSV export from a floating export button</li>
+<li>Access control with an audit trail of who viewed which claim</li>
+</ul>
+<p class="private-note">This was a private engagement, so the code isn't public. <a href="mailto:miles@plannedpixel.com?subject=About%20ClaimTracker">Ask me about it</a>.</p>
+</main>
+
+<footer class="panel ring" id="ring">
+<p class="small" style="margin: 0">you are at stop 3 of 14 on</p>
+<h2 class="ring-title">✦ THE PLANNED PIXEL RING ✦</h2>
+<nav class="ring-nav" aria-label="Webring">
+<a class="ring-btn" href="../projects/vixxing.html" rel="prev">« Vixxing</a>
+<a class="ring-btn" href="../index.html#workshop" data-ring-random>random</a>
+<a class="ring-btn" href="../index.html#workshop">list all</a>
+<a class="ring-btn" href="../projects/payment-posting.html" rel="next">Payment Posting Rewrite »</a>
+</nav>
+<p class="ring-foot">a ring of one person's projects: every project is a stop · <a href="mailto:miles@plannedpixel.com?subject=Guestbook">sign my guestbook</a> · © 2026 Miles Howell · best viewed in any browser</p>
+</footer>
+
+</div>
+<script src="../js/ring.js"></script>
+<script src="../js/site.js"></script>
+</body>
+</html>

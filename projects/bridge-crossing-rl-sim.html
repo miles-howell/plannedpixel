@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-6P5LRT54KQ"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-6P5LRT54KQ');
+</script>
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Bridge-Crossing RL Sim · Miles Howell · Planned Pixel</title>
+<meta name="description" content="Hierarchical reinforcement learning in a grid world. A manager agent picks sub-goals, a worker agent walks there, and together they learn to fetch a log, build a bridge and get home. A “profit-sharing” reward keeps their goals aligned.">
+<meta name="theme-color" content="#04051a">
+<meta property="og:title" content="Bridge-Crossing RL Sim · Miles Howell · Planned Pixel">
+<meta property="og:description" content="Hierarchical reinforcement learning in a grid world. A manager agent picks sub-goals, a worker agent walks there, and together they learn to fetch a log, build a bridge and get home. A “profit-sharing” reward keeps their goals aligned.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://plannedpixel.com/projects/bridge-crossing-rl-sim.html">
+<link rel="icon" href="../img/favicon.ico" sizes="any">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Silkscreen:wght@400;700&amp;display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/style.css">
+</head>
+<body data-ring="bridge-crossing-rl-sim" data-root="../">
+<a class="skip" href="#main">Skip to content</a>
+<div class="wrap">
+
+<header class="panel site-head compact">
+<div class="kicker">~*~ stop 1 of 14 on the planned pixel ring ~*~</div>
+<p class="site-title"><a href="../index.html">MILES HOWELL</a></p>
+</header>
+
+<main id="main" class="panel panel-pad" data-updated="2026-09-17">
+<p class="crumbs"><a href="../index.html">home</a> » <a href="../index.html#workshop">the workshop</a> » Bridge-Crossing RL Sim</p>
+<div class="card-head" style="margin-top: 18px"><p class="project-kind">Machine learning</p><span class="new" hidden>NEW!</span></div>
+<h1 class="project-title">Bridge-Crossing RL Sim</h1>
+<p class="project-lede">Hierarchical reinforcement learning in a grid world. A manager agent picks sub-goals, a worker agent walks there, and together they learn to fetch a log, build a bridge and get home. A “profit-sharing” reward keeps their goals aligned.</p>
+<dl class="facts">
+<div><dt>access:</dt><dd class="access-public">public</dd></div>
+<div><dt>year:</dt><dd>2026</dd></div>
+<div><dt>built with:</dt><dd>Python, PyTorch, Django, Web Workers</dd></div>
+</dl>
+<div class="project-body">
+<p>A Django web app for watching a hierarchical reinforcement learning agent learn in real time. The agent lives in a grid world split by a river. To get home it has to pick up a bridge piece, place it in the river, cross, and walk to the house.</p>
+<p>The work is split between two agents. The <strong>manager</strong> only sees the big picture (do I have the bridge piece, is it placed, have I crossed?) and issues sub-goals like <code>GOTO_LOG</code> or <code>GOTO_RIVER</code>. The <strong>worker</strong> sees its own position and moves up, down, left and right to reach whatever sub-goal it was handed.</p>
+<p>Training two separate value estimators toward one shared goal is fragile. A few clumsy worker moves can drag the manager’s Q-values far from a strategy it had already found. The fix here is profit sharing, in the spirit of potential-based reward shaping: the manager is rewarded when a command actually changes the world (it said <code>GOTO_LOG</code>, and now the agent <code>HAS_LOG</code>), and the worker earns a cut of that profit every step, positive or negative depending on what the manager currently expects. That small signal is enough to tell the worker <em>why</em> a square is worth walking to.</p>
+</div>
+<h2 class="h2">~ highlights ~</h2>
+<ul class="highlights">
+<li>Both agents are Q-learners backed by small neural networks, with periodically synced target networks to keep training stable</li>
+<li>Hindsight Experience Replay lets the worker learn from failed attempts by relabeling them as successes toward wherever it actually ended up</li>
+<li>Dense worker rewards: +100 for each milestone, −1000 for drowning, and a small penalty for every step</li>
+<li>A Web Worker polls the simulation API so training runs without freezing the page, and you can inspect the worker’s live Q-value map</li>
+</ul>
+<div class="project-links">
+<a class="ring-btn" href="https://github.com/miles-howell/Bridge-Crossing-RL-Sim">view source on GitHub »</a>
+</div>
+</main>
+
+<footer class="panel ring" id="ring">
+<p class="small" style="margin: 0">you are at stop 1 of 14 on</p>
+<h2 class="ring-title">✦ THE PLANNED PIXEL RING ✦</h2>
+<nav class="ring-nav" aria-label="Webring">
+<a class="ring-btn" href="../index.html" rel="prev">« home</a>
+<a class="ring-btn" href="../index.html#workshop" data-ring-random>random</a>
+<a class="ring-btn" href="../index.html#workshop">list all</a>
+<a class="ring-btn" href="../projects/vixxing.html" rel="next">Vixxing »</a>
+</nav>
+<p class="ring-foot">a ring of one person's projects: every project is a stop · <a href="mailto:miles@plannedpixel.com?subject=Guestbook">sign my guestbook</a> · © 2026 Miles Howell · best viewed in any browser</p>
+</footer>
+
+</div>
+<script src="../js/ring.js"></script>
+<script src="../js/site.js"></script>
+</body>
+</html>
