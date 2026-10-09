@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" shape-rendering="crispEdges">
+  <rect width="16" height="16" rx="2" fill="#060826"/>
+  <rect x=".5" y=".5" width="15" height="15" rx="1.5" fill="none" stroke="#7d7dff"/>
+  <!-- pixel "P" -->
+  <path fill="#ffef3a" d="M5 4h5v2H5zM5 6h2v6H5zM9 6h2v3H9zM7 7h2v2H7z"/>
+  <!-- the planned pixel + ring nodes -->
+  <rect x="12" y="11" width="2" height="2" fill="#ff7ad9"/>
+  <rect x="2" y="2" width="2" height="2" fill="#66ffff"/>
+</svg>

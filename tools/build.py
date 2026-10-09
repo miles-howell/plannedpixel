@@ -65,6 +65,7 @@ def head(title, description, path, root):
 <meta property="og:description" content="{esc(description)}">
 <meta property="og:type" content="website">
 <meta property="og:url" content="{SITE_URL}/{path}">
+<link rel="icon" href="{root}img/favicon.svg" type="image/svg+xml">
 <link rel="icon" href="{root}img/favicon.ico" sizes="any">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
