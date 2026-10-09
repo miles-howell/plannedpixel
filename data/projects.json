@@ -66,27 +66,6 @@
     ]
   },
   {
-    "slug": "payment-posting",
-    "title": "Payment Posting Rewrite",
-    "kind": "Legacy modernization",
-    "summary": "Replacing a 15-year-old WinForms tool that batch-posts member payments into a health-plan admin system, with every SQL statement ported 1:1.",
-    "tags": ["C#", ".NET", "Django", "SQL Server"],
-    "access": "work",
-    "year": "2026",
-    "updated": "2026-09-04",
-    "links": [],
-    "body": [
-      "For about fifteen years, finance staff have used the same Windows Forms desktop app to batch-load member payments (ACH, check, cash and credit card) into a third-party health-plan administration system. The vendor has no bulk import that fits how bank and lockbox reports arrive, so this little tool fills the gap.",
-      "The rewrite replaces the UI and the plumbing, not the behavior. Every SQL statement is ported verbatim: column order, sentinel dates, empty strings, even the order of ID-sequencer calls. When something has run against production for fifteen years, an odd-looking line is an external contract, not a bug. Anything suspicious gets a <code>QUIRK:</code> comment and a question, never a silent fix."
-    ],
-    "highlights": [
-      "Paste rows straight from Excel or a bank report and stage them as a batch",
-      "Every row is checked against the member’s account before anything is written",
-      "A batch log for reviewing open and held totals before sending",
-      "Nothing posts until a person reviews the batch and clicks send"
-    ]
-  },
-  {
     "slug": "window-works",
     "title": "Window-Works",
     "kind": "Internal tooling",
@@ -126,27 +105,6 @@
       "Syncs company events from SharePoint",
       "Custom themes and a lightweight analytics middleware",
       "A demo seed command, so the public version runs without real employee data"
-    ]
-  },
-  {
-    "slug": "tech-trio-3-hq",
-    "title": "Tech Trio 3 HQ",
-    "kind": "Collaboration",
-    "summary": "A shared command center for three founders who each run their own software company, plus Spire, a virtual office building you can actually wander through.",
-    "tags": ["Next.js", "TypeScript", "Supabase", "PWA"],
-    "access": "collab",
-    "year": "2026",
-    "updated": "2026-10-07",
-    "links": [],
-    "body": [
-      "Three founders, three separate software companies, one shared office. Tech Trio 3 HQ is an installable web app where we keep shared priorities, a joint project board, open items, decisions, notes and contacts in one place.",
-      "It also has Spire, a play-first virtual office building: a lobby, an elevator, a café, an arcade floor with a snake game, dorms and a roof, plus an avatar studio for building your character."
-    ],
-    "highlights": [
-      "Invite-only magic-link sign-in",
-      "A project board that moves ideas from Idea to Active to Parked",
-      "Scan a business card with your phone to add a shared contact",
-      "Installs as an app on a phone or desktop"
     ]
   },
   {
