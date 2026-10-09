@@ -1,0 +1,278 @@
+[
+  {
+    "slug": "bridge-crossing-rl-sim",
+    "title": "Bridge-Crossing RL Sim",
+    "kind": "Machine learning",
+    "summary": "Hierarchical reinforcement learning in a grid world. A manager agent picks sub-goals, a worker agent walks there, and together they learn to fetch a log, build a bridge and get home. A “profit-sharing” reward keeps their goals aligned.",
+    "tags": ["Python", "PyTorch", "Django", "Web Workers"],
+    "access": "public",
+    "year": "2026",
+    "updated": "2026-09-17",
+    "links": [{"label": "view source on GitHub", "url": "https://github.com/miles-howell/Bridge-Crossing-RL-Sim"}],
+    "body": [
+      "A Django web app for watching a hierarchical reinforcement learning agent learn in real time. The agent lives in a grid world split by a river. To get home it has to pick up a bridge piece, place it in the river, cross, and walk to the house.",
+      "The work is split between two agents. The <strong>manager</strong> only sees the big picture (do I have the bridge piece, is it placed, have I crossed?) and issues sub-goals like <code>GOTO_LOG</code> or <code>GOTO_RIVER</code>. The <strong>worker</strong> sees its own position and moves up, down, left and right to reach whatever sub-goal it was handed.",
+      "Training two separate value estimators toward one shared goal is fragile. A few clumsy worker moves can drag the manager’s Q-values far from a strategy it had already found. The fix here is profit sharing, in the spirit of potential-based reward shaping: the manager is rewarded when a command actually changes the world (it said <code>GOTO_LOG</code>, and now the agent <code>HAS_LOG</code>), and the worker earns a cut of that profit every step, positive or negative depending on what the manager currently expects. That small signal is enough to tell the worker <em>why</em> a square is worth walking to."
+    ],
+    "highlights": [
+      "Both agents are Q-learners backed by small neural networks, with periodically synced target networks to keep training stable",
+      "Hindsight Experience Replay lets the worker learn from failed attempts by relabeling them as successes toward wherever it actually ended up",
+      "Dense worker rewards: +100 for each milestone, −1000 for drowning, and a small penalty for every step",
+      "A Web Worker polls the simulation API so training runs without freezing the page, and you can inspect the worker’s live Q-value map"
+    ]
+  },
+  {
+    "slug": "vixxing",
+    "title": "Vixxing",
+    "kind": "Security tooling",
+    "summary": "Caller verification for IT help desks. Before anyone resets a password or MFA, the caller reads a live 6-digit TOTP code off their phone. Facts leak. Possession doesn’t.",
+    "tags": ["Django", "PyOTP", "TOTP", "Microsoft Graph"],
+    "access": "public",
+    "year": "2026",
+    "updated": "2026-08-18",
+    "links": [{"label": "view source on GitHub", "url": "https://github.com/miles-howell/Vixxing"}],
+    "body": [
+      "Most account-takeover defenses assume the attack comes through a login screen. The help desk is a different door, and usually a weaker one. An attacker looks up an employee, calls in sounding legitimate (“I got a new phone and I’m locked out”), and talks an agent into resetting MFA. Every check the agent can run, from caller ID to employee ID to date of birth, only proves the caller knows facts. Facts leak.",
+      "Vixxing puts a possession factor on the phone call itself. Every employee enrolls a TOTP secret, the same RFC 6238 one-time-password standard their authenticator app already uses for login. When they call, the agent asks for the current 6-digit code, types it in, and gets a green <strong>Caller Verified</strong> or a red <strong>Do not proceed</strong>. Someone without the enrolled phone can’t pass, no matter how much they know about the person they’re pretending to be.",
+      "The name is a nod to the problem: <em>vishing</em>, or voice phishing."
+    ],
+    "highlights": [
+      "One staff-facing dashboard to add employees, verify callers, search, and import or export CSV",
+      "Enrollment by email: the server generates a secret, renders it as a QR code and sends it through Microsoft Graph",
+      "Works with Microsoft Authenticator, Google Authenticator and any other TOTP app",
+      "Accepts the current 30-second window plus one on either side to allow for clock drift"
+    ]
+  },
+  {
+    "slug": "claimtracker",
+    "title": "ClaimTracker",
+    "kind": "Healthcare · legacy replacement",
+    "summary": "A Django rebuild of a legacy healthcare claims viewer. Reads EDI 837 claims and renders print-accurate UB-04 and CMS-1500 forms, with PDF, Word and CSV export.",
+    "tags": ["Django", "SQL Server", "X12 EDI", "Playwright"],
+    "access": "work",
+    "year": "2026",
+    "updated": "2026-10-09",
+    "links": [],
+    "body": [
+      "A replacement for an aging internal claims viewer that nobody had documentation for. Healthcare claims arrive as X12 EDI 837 files, both institutional (837I) and professional (837P), and get parsed into a SQL Server database. ClaimTracker reads them back out and shows each claim the way people actually know it: as a UB-04 or CMS-1500 form.",
+      "The forms are print-accurate, down to the real numbered-box layout. Staff can browse by date, provider or member, or search directly, see the claim’s live adjudication status, and export the open claim as a PDF, a Word document or a CSV.",
+      "Most of the work was reading the old system closely enough to reproduce what it actually did, not what anyone remembered it doing."
+    ],
+    "highlights": [
+      "Feature parity with the legacy viewer: search, browse and the real form layouts",
+      "Live adjudication status for the selected claim",
+      "PDF, Word (.docx) and CSV export from a floating export button",
+      "Access control with an audit trail of who viewed which claim"
+    ]
+  },
+  {
+    "slug": "payment-posting",
+    "title": "Payment Posting Rewrite",
+    "kind": "Legacy modernization",
+    "summary": "Replacing a 15-year-old WinForms tool that batch-posts member payments into a health-plan admin system, with every SQL statement ported 1:1.",
+    "tags": ["C#", ".NET", "Django", "SQL Server"],
+    "access": "work",
+    "year": "2026",
+    "updated": "2026-09-04",
+    "links": [],
+    "body": [
+      "For about fifteen years, finance staff have used the same Windows Forms desktop app to batch-load member payments (ACH, check, cash and credit card) into a third-party health-plan administration system. The vendor has no bulk import that fits how bank and lockbox reports arrive, so this little tool fills the gap.",
+      "The rewrite replaces the UI and the plumbing, not the behavior. Every SQL statement is ported verbatim: column order, sentinel dates, empty strings, even the order of ID-sequencer calls. When something has run against production for fifteen years, an odd-looking line is an external contract, not a bug. Anything suspicious gets a <code>QUIRK:</code> comment and a question, never a silent fix."
+    ],
+    "highlights": [
+      "Paste rows straight from Excel or a bank report and stage them as a batch",
+      "Every row is checked against the member’s account before anything is written",
+      "A batch log for reviewing open and held totals before sending",
+      "Nothing posts until a person reviews the batch and clicks send"
+    ]
+  },
+  {
+    "slug": "window-works",
+    "title": "Window-Works",
+    "kind": "Internal tooling",
+    "summary": "An interactive office floor plan. Look up your seat, reserve a free desk, and let admins repaint the layout without touching the database.",
+    "tags": ["Django", "JavaScript", "SQLite"],
+    "access": "public",
+    "year": "2026",
+    "updated": "2026-08-19",
+    "links": [{"label": "view source on GitHub", "url": "https://github.com/miles-howell/Window-Works"}],
+    "body": [
+      "The office floor plan used to live in a spreadsheet. Window-Works turns it into an interactive map with color-coded departments, badges for free, occupied and kiosk desks, and a detail view for every seat showing who sits there and any notes.",
+      "Staff type their name to find their current desk, with no account or approval needed, and can claim any free desk, which automatically ends their previous assignment for the day. Admins get a visual layout editor: select a group of cells, assign a department, override colors or notes, and record temporary or permanent desk and work-from-home assignments."
+    ],
+    "highlights": [
+      "Right-click panning and accessible color contrast on every desk",
+      "A live banner showing your current assignment and how long you’ve had it",
+      "An admin dashboard of active assignments with one-click end",
+      "SQLite and WhiteNoise, so it runs almost anywhere"
+    ]
+  },
+  {
+    "slug": "employee-directory",
+    "title": "Employee Directory",
+    "kind": "Legacy migration",
+    "summary": "A company directory built over a legacy Microsoft Access database, sorted by department and hierarchy, with birthdays and work anniversaries on the front page.",
+    "tags": ["Django", "MS Access", "SharePoint"],
+    "access": "public",
+    "year": "2026",
+    "updated": "2026-08-31",
+    "links": [{"label": "view source on GitHub", "url": "https://github.com/miles-howell/employee-database"}],
+    "body": [
+      "An internal employee directory built on top of a legacy Microsoft Access database, which kept working the whole time. Employees are grouped by department and ordered by the real reporting hierarchy, and department heads and supervisors get a watermark on their cards.",
+      "The homepage celebrates everyone with a birthday or work anniversary this month, with extra emphasis on today’s. An advanced search filters by department, title, hire date and supervisor status, and any set of results exports to CSV."
+    ],
+    "highlights": [
+      "Management commands to parse and import employee records from the legacy database",
+      "Syncs company events from SharePoint",
+      "Custom themes and a lightweight analytics middleware",
+      "A demo seed command, so the public version runs without real employee data"
+    ]
+  },
+  {
+    "slug": "tech-trio-3-hq",
+    "title": "Tech Trio 3 HQ",
+    "kind": "Collaboration",
+    "summary": "A shared command center for three founders who each run their own software company, plus Spire, a virtual office building you can actually wander through.",
+    "tags": ["Next.js", "TypeScript", "Supabase", "PWA"],
+    "access": "collab",
+    "year": "2026",
+    "updated": "2026-10-07",
+    "links": [],
+    "body": [
+      "Three founders, three separate software companies, one shared office. Tech Trio 3 HQ is an installable web app where we keep shared priorities, a joint project board, open items, decisions, notes and contacts in one place.",
+      "It also has Spire, a play-first virtual office building: a lobby, an elevator, a café, an arcade floor with a snake game, dorms and a roof, plus an avatar studio for building your character."
+    ],
+    "highlights": [
+      "Invite-only magic-link sign-in",
+      "A project board that moves ideas from Idea to Active to Parked",
+      "Scan a business card with your phone to add a shared contact",
+      "Installs as an app on a phone or desktop"
+    ]
+  },
+  {
+    "slug": "toy-browser",
+    "title": "Toy Browser",
+    "kind": "Learning in public",
+    "summary": "A web browser from scratch in Python, following browser.engineering: sockets, TLS, an HTML parser, CSS and layout. A Rust rewrite comes next.",
+    "tags": ["Python", "Tkinter", "Sockets"],
+    "access": "private",
+    "year": "2026",
+    "updated": "2026-05-27",
+    "links": [],
+    "body": [
+      "There’s no better way to understand the web than to build the thing that reads it. I’m working through <a href=\"https://browser.engineering\">Web Browser Engineering</a> and writing my own browser in Python as I go.",
+      "So far it opens raw sockets, speaks HTTP over TLS, decodes HTML entities, builds a document tree with its own HTML parser, applies CSS with tag and descendant selectors, lays out blocks and text, and paints the result to a Tkinter canvas. Once it’s semi-functional, the plan is to rewrite the whole thing in Rust."
+    ],
+    "highlights": [
+      "A hand-written HTML parser and document tree",
+      "A small CSS parser with cascade priority",
+      "Block and inline layout painted through a display list"
+    ]
+  },
+  {
+    "slug": "normalization-sim",
+    "title": "Normalization Sim",
+    "kind": "Simulation",
+    "summary": "An agent-based toy model of what happens when AI pulls everyone’s opinions toward the mean. Tracks stability, Gini inequality, opinion diversity and trust over time.",
+    "tags": ["Python", "NumPy", "matplotlib"],
+    "access": "public",
+    "year": "2025",
+    "updated": "2025-08-19",
+    "links": [{"label": "view source on GitHub", "url": "https://github.com/miles-howell/Normalization-Simulation"}],
+    "body": [
+      "What happens to a society when an AI quietly nudges everyone’s opinions toward the average? What if it does the opposite and amplifies the extremes for engagement? This simulation is a hackable toy for poking at those questions, built to be visual enough for a Primer-style explainer.",
+      "Agents are split into a majority and a minority with unequal starting resources, and “outlier” movements push on altruism, trust, polarization and policy. One dial, lambda, sets how hard opinions are pulled toward the mean, and engagement mode flips it to push them apart instead. Every simulated day it records stability, inequality (Gini), opinion and affiliation diversity, average trust, and how many minority agents starve.",
+      "It’s a teaching toy, not a prediction engine: something for building intuition about tradeoffs."
+    ],
+    "highlights": [
+      "Command-line dials for population, days, normalization strength and minority share",
+      "CSV metrics, matplotlib plots and an optional GIF of the agents over time"
+    ]
+  },
+  {
+    "slug": "christmas-packing-2025",
+    "title": "Christmas Packing 2025",
+    "kind": "Optimization",
+    "summary": "Kaggle’s Santa 2025 puzzle: pack 1 to 200 Christmas-tree polygons into the smallest possible square. Geometric families, simulated annealing and a GPU optimizer.",
+    "tags": ["Python", "Shapely", "PyTorch"],
+    "access": "private",
+    "year": "2025",
+    "updated": "2025-11-21",
+    "links": [],
+    "body": [
+      "Kaggle’s Santa 2025 challenge: for every <em>n</em> from 1 to 200, pack <em>n</em> identical Christmas-tree-shaped polygons into the smallest square you can, with no overlaps. The score adds up each square’s area divided by <em>n</em>, so every single configuration counts.",
+      "My attempts included hand-designed geometric families (spirals and diagonal chains of interlocking trees), simulated annealing to jiggle positions and rotations into tighter fits, and a GPU optimizer that rasterizes the trees for fast approximate overlap checks. The final geometry runs on 50-digit decimal precision, because the overlap check has to be exact."
+    ],
+    "highlights": [
+      "Shapely with an STRtree spatial index for fast overlap checks",
+      "Parallel search across CPU cores",
+      "PyTorch on CUDA for rasterized overlap checks when a GPU is available"
+    ]
+  },
+  {
+    "slug": "sprite-mapper",
+    "title": "Sprite-Mapper",
+    "kind": "Game dev tool",
+    "summary": "Upload a sprite sheet, click a tile, get its coordinates. No more counting rows and columns by hand.",
+    "tags": ["HTML", "JavaScript", "Tailwind CSS"],
+    "access": "public",
+    "year": "2025",
+    "updated": "2025-07-01",
+    "links": [{"label": "view source on GitHub", "url": "https://github.com/miles-howell/Sprite-Mapper"}],
+    "body": [
+      "A tiny single-page tool for anyone who has squinted at a sprite sheet counting tiles. Upload the sheet, enter the tile size and any margin between tiles, and click: you get the tile’s x and y coordinates instantly, with the selected tile outlined in red.",
+      "It’s one HTML file. No install, no build step."
+    ],
+    "highlights": []
+  },
+  {
+    "slug": "dashboard-viewer",
+    "title": "Dashboard Viewer",
+    "kind": "Desktop app",
+    "summary": "A desktop launcher for department dashboards. Pick a department to open its PowerPoint dashboard, or upload a new version from the same screen.",
+    "tags": ["Python", "CustomTkinter", "PyInstaller"],
+    "access": "public",
+    "year": "2026",
+    "updated": "2026-08-18",
+    "links": [{"label": "view source on GitHub", "url": "https://github.com/miles-howell/Dashboard-Viewer"}],
+    "body": [
+      "A small desktop app for offices that share their dashboards as PowerPoint files. Pick a department and its dashboard opens, or upload a new version from the same screen. It greets first-time users with a splash screen, can point at a local folder or a shared network drive, and packages into a single .exe with PyInstaller for easy rollout.",
+      "The public version is a safe demo with generic departments and sample files."
+    ],
+    "highlights": []
+  },
+  {
+    "slug": "convert-image",
+    "title": "Convert-Image",
+    "kind": "Desktop app",
+    "summary": "A drag-and-drop desktop image converter with previews. Drop in almost any image, get an ICO, PNG, JPG, BMP or GIF out.",
+    "tags": ["Python", "CustomTkinter", "Pillow"],
+    "access": "private",
+    "year": "2025",
+    "updated": "2025-06-09",
+    "links": [],
+    "body": [
+      "A simple cross-platform converter built with CustomTkinter and Pillow. Drag an image onto the window (or browse for one), preview it, pick a target format and convert. ICO output bundles multiple icon sizes, which makes it handy for app icons and favicons."
+    ],
+    "highlights": []
+  },
+  {
+    "slug": "fruit-classifier",
+    "title": "Fruit Classifier",
+    "kind": "Where it started",
+    "summary": "A single-neuron network in pure NumPy that tells limes from lemons by weight and color. Sigmoid, backprop and gradient descent, all by hand.",
+    "tags": ["Python", "NumPy"],
+    "access": "public",
+    "year": "high school",
+    "updated": "2025-05-23",
+    "links": [
+      {"label": "view source on GitHub", "url": "https://github.com/miles-howell/fruit_classifier"},
+      {"label": "more old AI projects", "url": "https://github.com/miles-howell/Old-AI-Projects"}
+    ],
+    "body": [
+      "Written in high school, back when OpenAI was still focused on Gym, to understand neural networks without anyone else’s library doing the thinking. It’s one neuron with two inputs, a fruit’s weight and its color (0 for green, 1 for yellow), and one output: lime or lemon.",
+      "Everything is done by hand: random weight initialization, a sigmoid forward pass, backpropagation through the sigmoid’s derivative, and gradient descent over 10,000 iterations. From the same era: a from-scratch linear regression that demonstrates gradient descent, and a reworked version of Karpathy’s min-char-rnn."
+    ],
+    "highlights": []
+  }
+]

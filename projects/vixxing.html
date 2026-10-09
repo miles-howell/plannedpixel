@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-6P5LRT54KQ"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-6P5LRT54KQ');
+</script>
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Vixxing · Miles Howell · Planned Pixel</title>
+<meta name="description" content="Caller verification for IT help desks. Before anyone resets a password or MFA, the caller reads a live 6-digit TOTP code off their phone. Facts leak. Possession doesn’t.">
+<meta name="theme-color" content="#04051a">
+<meta property="og:title" content="Vixxing · Miles Howell · Planned Pixel">
+<meta property="og:description" content="Caller verification for IT help desks. Before anyone resets a password or MFA, the caller reads a live 6-digit TOTP code off their phone. Facts leak. Possession doesn’t.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://plannedpixel.com/projects/vixxing.html">
+<link rel="icon" href="../img/favicon.ico" sizes="any">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Silkscreen:wght@400;700&amp;display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/style.css">
+</head>
+<body data-ring="vixxing" data-root="../">
+<a class="skip" href="#main">Skip to content</a>
+<div class="wrap">
+
+<header class="panel site-head compact">
+<div class="kicker">~*~ stop 2 of 14 on the planned pixel ring ~*~</div>
+<p class="site-title"><a href="../index.html">MILES HOWELL</a></p>
+</header>
+
+<main id="main" class="panel panel-pad" data-updated="2026-08-18">
+<p class="crumbs"><a href="../index.html">home</a> » <a href="../index.html#workshop">the workshop</a> » Vixxing</p>
+<div class="card-head" style="margin-top: 18px"><p class="project-kind">Security tooling</p><span class="new" hidden>NEW!</span></div>
+<h1 class="project-title">Vixxing</h1>
+<p class="project-lede">Caller verification for IT help desks. Before anyone resets a password or MFA, the caller reads a live 6-digit TOTP code off their phone. Facts leak. Possession doesn’t.</p>
+<dl class="facts">
+<div><dt>access:</dt><dd class="access-public">public</dd></div>
+<div><dt>year:</dt><dd>2026</dd></div>
+<div><dt>built with:</dt><dd>Django, PyOTP, TOTP, Microsoft Graph</dd></div>
+</dl>
+<div class="project-body">
+<p>Most account-takeover defenses assume the attack comes through a login screen. The help desk is a different door, and usually a weaker one. An attacker looks up an employee, calls in sounding legitimate (“I got a new phone and I’m locked out”), and talks an agent into resetting MFA. Every check the agent can run, from caller ID to employee ID to date of birth, only proves the caller knows facts. Facts leak.</p>
+<p>Vixxing puts a possession factor on the phone call itself. Every employee enrolls a TOTP secret, the same RFC 6238 one-time-password standard their authenticator app already uses for login. When they call, the agent asks for the current 6-digit code, types it in, and gets a green <strong>Caller Verified</strong> or a red <strong>Do not proceed</strong>. Someone without the enrolled phone can’t pass, no matter how much they know about the person they’re pretending to be.</p>
+<p>The name is a nod to the problem: <em>vishing</em>, or voice phishing.</p>
+</div>
+<h2 class="h2">~ highlights ~</h2>
+<ul class="highlights">
+<li>One staff-facing dashboard to add employees, verify callers, search, and import or export CSV</li>
+<li>Enrollment by email: the server generates a secret, renders it as a QR code and sends it through Microsoft Graph</li>
+<li>Works with Microsoft Authenticator, Google Authenticator and any other TOTP app</li>
+<li>Accepts the current 30-second window plus one on either side to allow for clock drift</li>
+</ul>
+<div class="project-links">
+<a class="ring-btn" href="https://github.com/miles-howell/Vixxing">view source on GitHub »</a>
+</div>
+</main>
+
+<footer class="panel ring" id="ring">
+<p class="small" style="margin: 0">you are at stop 2 of 14 on</p>
+<h2 class="ring-title">✦ THE PLANNED PIXEL RING ✦</h2>
+<nav class="ring-nav" aria-label="Webring">
+<a class="ring-btn" href="../projects/bridge-crossing-rl-sim.html" rel="prev">« Bridge-Crossing RL Sim</a>
+<a class="ring-btn" href="../index.html#workshop" data-ring-random>random</a>
+<a class="ring-btn" href="../index.html#workshop">list all</a>
+<a class="ring-btn" href="../projects/claimtracker.html" rel="next">ClaimTracker »</a>
+</nav>
+<p class="ring-foot">a ring of one person's projects: every project is a stop · <a href="mailto:miles@plannedpixel.com?subject=Guestbook">sign my guestbook</a> · © 2026 Miles Howell · best viewed in any browser</p>
+</footer>
+
+</div>
+<script src="../js/ring.js"></script>
+<script src="../js/site.js"></script>
+</body>
+</html>
