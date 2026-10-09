@@ -115,7 +115,6 @@ def ring_nav(prev, nxt, root):
 def ring_footer_text(root):
     return (
         '<p class="ring-foot">a ring of one person\'s projects: every project is a stop · '
-        f'<a href="mailto:{EMAIL}?subject=Guestbook">sign my guestbook</a> · '
         "© 2026 Miles Howell · best viewed in any browser</p>"
     )
 
