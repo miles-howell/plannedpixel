@@ -133,7 +133,7 @@ def project_page(project, number, total, prev, nxt):
 
     if project["links"]:
         buttons = "\n".join(
-            f'<a class="ring-btn" href="{esc(link["url"])}">{esc(link["label"])} »</a>'
+            f'<a class="ring-btn" href="{esc(link["url"])}" target="_blank" rel="noopener noreferrer">{esc(link["label"])} »</a>'
             for link in project["links"]
         )
         links = f'<div class="project-links">\n{buttons}\n</div>'
