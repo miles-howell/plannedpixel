@@ -1,0 +1,64 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 750" width="1200" height="750" role="img" aria-labelledby="t d">
+<title id="t">Fruit Classifier</title>
+<desc id="d">The trained single neuron: weight and colour go in, are multiplied by learned weights -0.94 and 14.49, and pass through a sigmoid to give lime (0) or lemon (1). Beside it, the neuron's output over every weight and colour, from lime green to lemon yellow, with the four training fruits on it.</desc>
+<rect width="1200" height="750" fill="#f6f6fb"/>
+<defs><pattern id="dots" width="24" height="24" patternUnits="userSpaceOnUse"><rect x="11" y="11" width="2" height="2" fill="#d6d6e6"/></pattern>
+<linearGradient id="field" gradientUnits="userSpaceOnUse" x1="1018.37" y1="502.38" x2="793.77" y2="212.83"><stop offset="0.0000" stop-color="#b4ea86"/><stop offset="0.0357" stop-color="#b4ea86"/><stop offset="0.0714" stop-color="#b4ea86"/><stop offset="0.1071" stop-color="#b4ea86"/><stop offset="0.1429" stop-color="#b5ea86"/><stop offset="0.1786" stop-color="#b5ea86"/><stop offset="0.2143" stop-color="#b5ea85"/><stop offset="0.2500" stop-color="#b6ea85"/><stop offset="0.2857" stop-color="#b8ea84"/><stop offset="0.3214" stop-color="#baea83"/><stop offset="0.3571" stop-color="#bde981"/><stop offset="0.3929" stop-color="#c2e97e"/><stop offset="0.4286" stop-color="#c8e87b"/><stop offset="0.4643" stop-color="#d0e876"/><stop offset="0.5000" stop-color="#dae771"/><stop offset="0.5357" stop-color="#e3e66c"/><stop offset="0.5714" stop-color="#ebe667"/><stop offset="0.6071" stop-color="#f1e564"/><stop offset="0.6429" stop-color="#f6e561"/><stop offset="0.6786" stop-color="#f9e45f"/><stop offset="0.7143" stop-color="#fbe45e"/><stop offset="0.7500" stop-color="#fde45d"/><stop offset="0.7857" stop-color="#fee45d"/><stop offset="0.8214" stop-color="#fee45c"/><stop offset="0.8571" stop-color="#fee45c"/><stop offset="0.8929" stop-color="#ffe45c"/><stop offset="0.9286" stop-color="#ffe45c"/><stop offset="0.9643" stop-color="#ffe45c"/><stop offset="1.0000" stop-color="#ffe45c"/></linearGradient>
+<clipPath id="map"><rect x="640" y="84" width="480" height="480"/></clipPath>
+</defs>
+<rect width="1200" height="750" fill="url(#dots)"/>
+<path d="M184,190 C278,190 230,324 288,324" fill="none" stroke="#ff4fc8" stroke-width="3.6" stroke-linecap="round"/>
+<rect x="77" y="165" width="112" height="60" fill="#0b0d33"/>
+<rect x="72" y="160" width="112" height="60" fill="#fff" stroke="#0b0d33" stroke-width="3"/>
+<text x="128" y="197" text-anchor="middle" font-family="ui-monospace, 'SFMono-Regular', Menlo, Consolas, 'Liberation Mono', monospace" font-size="20" font-weight="700" fill="#0b0d33">weight</text>
+<text x="72" y="246" font-family="ui-monospace, 'SFMono-Regular', Menlo, Consolas, 'Liberation Mono', monospace" font-size="14" fill="#5a5c80">x₁</text>
+<text x="72" y="272" font-family="ui-monospace, 'SFMono-Regular', Menlo, Consolas, 'Liberation Mono', monospace" font-size="16" font-weight="700" fill="#ff4fc8">w = -0.94</text>
+<path d="M184,458 C278,458 230,324 288,324" fill="none" stroke="#2b2bb0" stroke-width="12.0" stroke-linecap="round"/>
+<rect x="77" y="433" width="112" height="60" fill="#0b0d33"/>
+<rect x="72" y="428" width="112" height="60" fill="#fff" stroke="#0b0d33" stroke-width="3"/>
+<text x="128" y="465" text-anchor="middle" font-family="ui-monospace, 'SFMono-Regular', Menlo, Consolas, 'Liberation Mono', monospace" font-size="20" font-weight="700" fill="#0b0d33">color</text>
+<text x="72" y="514" font-family="ui-monospace, 'SFMono-Regular', Menlo, Consolas, 'Liberation Mono', monospace" font-size="14" fill="#5a5c80">x₂ · 0 green, 1 yellow</text>
+<text x="72" y="540" font-family="ui-monospace, 'SFMono-Regular', Menlo, Consolas, 'Liberation Mono', monospace" font-size="16" font-weight="700" fill="#2b2bb0">w = +14.49</text>
+<circle cx="386" cy="330" r="92" fill="#0b0d33"/>
+<circle cx="380" cy="324" r="92" fill="#fff" stroke="#0b0d33" stroke-width="4"/>
+<line x1="318" y1="324" x2="442" y2="324" stroke="#d6d6e6" stroke-width="2"/>
+<polyline points="322.0,357.8 324.9,357.8 327.8,357.7 330.7,357.6 333.6,357.4 336.5,357.3 339.4,357.0 342.3,356.7 345.2,356.2 348.1,355.6 351.0,354.8 353.9,353.7 356.8,352.3 359.7,350.6 362.6,348.4 365.5,345.6 368.4,342.3 371.3,338.3 374.2,333.9 377.1,329.1 380.0,324.0 382.9,318.9 385.8,314.1 388.7,309.7 391.6,305.7 394.5,302.4 397.4,299.6 400.3,297.4 403.2,295.7 406.1,294.3 409.0,293.2 411.9,292.4 414.8,291.8 417.7,291.3 420.6,291.0 423.5,290.7 426.4,290.6 429.3,290.4 432.2,290.3 435.1,290.2 438.0,290.2" fill="none" stroke="#0b0d33" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="380" y="450" text-anchor="middle" font-family="ui-monospace, 'SFMono-Regular', Menlo, Consolas, 'Liberation Mono', monospace" font-size="16" fill="#5a5c80">σ(Σ wᵢxᵢ)</text>
+<path d="M480,324 H542" stroke="#0b0d33" stroke-width="5"/>
+<path d="M542,312 l16,12 l-16,12z" fill="#0b0d33"/>
+<rect x="646" y="90" width="480" height="480" fill="#0b0d33"/>
+<rect x="640" y="84" width="480" height="480" fill="url(#field)"/>
+<line x1="640.0" y1="564.0" x2="1120.0" y2="191.7" stroke="#0b0d33" stroke-width="3" stroke-dasharray="10 8" clip-path="url(#map)"/>
+<rect x="640" y="84" width="480" height="480" fill="none" stroke="#0b0d33" stroke-width="3"/>
+<line x1="640.0" y1="564" x2="640.0" y2="574" stroke="#0b0d33" stroke-width="2"/>
+<text x="640.0" y="596" text-anchor="middle" font-family="ui-monospace, 'SFMono-Regular', Menlo, Consolas, 'Liberation Mono', monospace" font-size="15" fill="#5a5c80">0</text>
+<line x1="720.0" y1="564" x2="720.0" y2="574" stroke="#0b0d33" stroke-width="2"/>
+<text x="720.0" y="596" text-anchor="middle" font-family="ui-monospace, 'SFMono-Regular', Menlo, Consolas, 'Liberation Mono', monospace" font-size="15" fill="#5a5c80">2</text>
+<line x1="800.0" y1="564" x2="800.0" y2="574" stroke="#0b0d33" stroke-width="2"/>
+<text x="800.0" y="596" text-anchor="middle" font-family="ui-monospace, 'SFMono-Regular', Menlo, Consolas, 'Liberation Mono', monospace" font-size="15" fill="#5a5c80">4</text>
+<line x1="880.0" y1="564" x2="880.0" y2="574" stroke="#0b0d33" stroke-width="2"/>
+<text x="880.0" y="596" text-anchor="middle" font-family="ui-monospace, 'SFMono-Regular', Menlo, Consolas, 'Liberation Mono', monospace" font-size="15" fill="#5a5c80">6</text>
+<line x1="960.0" y1="564" x2="960.0" y2="574" stroke="#0b0d33" stroke-width="2"/>
+<text x="960.0" y="596" text-anchor="middle" font-family="ui-monospace, 'SFMono-Regular', Menlo, Consolas, 'Liberation Mono', monospace" font-size="15" fill="#5a5c80">8</text>
+<line x1="1040.0" y1="564" x2="1040.0" y2="574" stroke="#0b0d33" stroke-width="2"/>
+<text x="1040.0" y="596" text-anchor="middle" font-family="ui-monospace, 'SFMono-Regular', Menlo, Consolas, 'Liberation Mono', monospace" font-size="15" fill="#5a5c80">10</text>
+<line x1="1120.0" y1="564" x2="1120.0" y2="574" stroke="#0b0d33" stroke-width="2"/>
+<text x="1120.0" y="596" text-anchor="middle" font-family="ui-monospace, 'SFMono-Regular', Menlo, Consolas, 'Liberation Mono', monospace" font-size="15" fill="#5a5c80">12</text>
+<text x="1120" y="624" text-anchor="end" font-family="ui-monospace, 'SFMono-Regular', Menlo, Consolas, 'Liberation Mono', monospace" font-size="16" font-weight="700" fill="#0b0d33">weight →</text>
+<rect x="600" y="70.0" width="22" height="22" fill="#ffe14d" stroke="#0b0d33" stroke-width="2"/>
+<rect x="600" y="550.0" width="22" height="22" fill="#7ed957" stroke="#0b0d33" stroke-width="2"/>
+<text x="611" y="324.0" text-anchor="middle" font-family="ui-monospace, 'SFMono-Regular', Menlo, Consolas, 'Liberation Mono', monospace" font-size="16" font-weight="700" fill="#0b0d33" transform="rotate(-90 611 324.0)">color</text>
+<text x="680.0" y="141.6" font-family="ui-monospace, 'SFMono-Regular', Menlo, Consolas, 'Liberation Mono', monospace" font-size="22" font-weight="700" fill="#8a6d00">LEMON</text>
+<text x="1096.0" y="516.0" text-anchor="end" font-family="ui-monospace, 'SFMono-Regular', Menlo, Consolas, 'Liberation Mono', monospace" font-size="22" font-weight="700" fill="#3f8f22">LIME</text>
+<g><circle cx="804.0" cy="510.4" r="20" fill="#0b0d33"/><circle cx="800.0" cy="506.4" r="20" fill="#7ed957" stroke="#0b0d33" stroke-width="3"/><circle cx="800.0" cy="506.4" r="12.4" fill="none" stroke="#b6f08f" stroke-width="3" stroke-dasharray="2 7"/><path d="M803.0,487.4 q10.0,-11.0 19.0,-5.0 q-9.0,10.0 -19.0,5.0z" fill="#3f8f22" stroke="#0b0d33" stroke-width="2.5"/><ellipse cx="793.0" cy="499.4" rx="3.5999999999999996" ry="2.0" fill="#fff" opacity=".7" transform="rotate(-35 793.0 499.4)"/></g>
+<g><circle cx="844.0" cy="510.4" r="20" fill="#0b0d33"/><circle cx="840.0" cy="506.4" r="20" fill="#7ed957" stroke="#0b0d33" stroke-width="3"/><circle cx="840.0" cy="506.4" r="12.4" fill="none" stroke="#b6f08f" stroke-width="3" stroke-dasharray="2 7"/><path d="M843.0,487.4 q10.0,-11.0 19.0,-5.0 q-9.0,10.0 -19.0,5.0z" fill="#3f8f22" stroke="#0b0d33" stroke-width="2.5"/><ellipse cx="833.0" cy="499.4" rx="3.5999999999999996" ry="2.0" fill="#fff" opacity=".7" transform="rotate(-35 833.0 499.4)"/></g>
+<g transform="rotate(-18 1000.0 141.60000000000002)"><path d="M972.0,141.60000000000002 q2.4,-2.4 4.4,-2.0 a23.599999999999998,18.0 0 0 1 47.199999999999996,0 q2.0,-0.4 4.4,2.0 q-2.4,2.4 -4.4,2.0 a23.599999999999998,18.0 0 0 1 -47.199999999999996,0 q-2.0,0.4 -4.4,-2.0z" fill="#0b0d33" transform="translate(4 4)"/><path d="M972.0,141.60000000000002 q2.4,-2.4 4.4,-2.0 a23.599999999999998,18.0 0 0 1 47.199999999999996,0 q2.0,-0.4 4.4,2.0 q-2.4,2.4 -4.4,2.0 a23.599999999999998,18.0 0 0 1 -47.199999999999996,0 q-2.0,0.4 -4.4,-2.0z" fill="#ffe14d" stroke="#0b0d33" stroke-width="3" stroke-linejoin="round"/><ellipse cx="992.0" cy="134.00000000000003" rx="5.6000000000000005" ry="2.0" fill="#fff" opacity=".75"/></g>
+<g transform="rotate(-18 1080.0 141.60000000000002)"><path d="M1052.0,141.60000000000002 q2.4,-2.4 4.4,-2.0 a23.599999999999998,18.0 0 0 1 47.199999999999996,0 q2.0,-0.4 4.4,2.0 q-2.4,2.4 -4.4,2.0 a23.599999999999998,18.0 0 0 1 -47.199999999999996,0 q-2.0,0.4 -4.4,-2.0z" fill="#0b0d33" transform="translate(4 4)"/><path d="M1052.0,141.60000000000002 q2.4,-2.4 4.4,-2.0 a23.599999999999998,18.0 0 0 1 47.199999999999996,0 q2.0,-0.4 4.4,2.0 q-2.4,2.4 -4.4,2.0 a23.599999999999998,18.0 0 0 1 -47.199999999999996,0 q-2.0,0.4 -4.4,-2.0z" fill="#ffe14d" stroke="#0b0d33" stroke-width="3" stroke-linejoin="round"/><ellipse cx="1072.0" cy="134.00000000000003" rx="5.6000000000000005" ry="2.0" fill="#fff" opacity=".75"/></g>
+<text x="640" y="62" font-family="ui-monospace, 'SFMono-Regular', Menlo, Consolas, 'Liberation Mono', monospace" font-size="15" fill="#5a5c80">P(lemon) after 10,000 steps of gradient descent</text>
+<rect x="64" y="714" width="10" height="10" fill="#0b0d33"/>
+<rect x="78" y="714" width="10" height="10" fill="#2b2bb0"/>
+<rect x="92" y="714" width="10" height="10" fill="#7d7dff"/>
+<rect x="106" y="714" width="10" height="10" fill="#ff4fc8"/>
+<rect x="120" y="714" width="10" height="10" fill="#ffd400"/>
+<rect x="134" y="714" width="10" height="10" fill="#6fd94a"/>
+</svg>

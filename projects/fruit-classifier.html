@@ -50,6 +50,10 @@
 <div class="pixels" aria-hidden="true"><i style="background: #0b0d33"></i><i style="background: #2b2bb0"></i><i style="background: #7d7dff"></i><i style="background: #ff4fc8"></i><i style="background: #ffd400"></i><i style="background: #6fd94a"></i></div>
 <div class="project-layout">
 <div class="project-main">
+<figure class="project-shot">
+<img src="../img/projects/fruit-classifier.svg" alt="The trained neuron: weight and colour feed a sigmoid through learned weights −0.94 and +14.49, beside its output across every weight and colour, from lime to lemon, with the four training fruits." width="1600" height="1000">
+<figcaption>Weights from running the original training loop.</figcaption>
+</figure>
 <div class="project-body">
 <p>Written in high school, back when OpenAI was still focused on Gym, to understand neural networks without anyone else’s library doing the thinking. It’s one neuron with two inputs, a fruit’s weight and its color (0 for green, 1 for yellow), and one output: lime or lemon.</p>
 <p>Everything is done by hand: random weight initialization, a sigmoid forward pass, backpropagation through the sigmoid’s derivative, and gradient descent over 10,000 iterations. From the same era: a from-scratch linear regression that demonstrates gradient descent, and a reworked version of Karpathy’s min-char-rnn.</p>

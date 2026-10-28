@@ -50,6 +50,10 @@
 <div class="pixels" aria-hidden="true"><i style="background: #0b0d33"></i><i style="background: #2b2bb0"></i><i style="background: #7d7dff"></i><i style="background: #ff4fc8"></i><i style="background: #ffd400"></i><i style="background: #6fd94a"></i></div>
 <div class="project-layout">
 <div class="project-main">
+<figure class="project-shot">
+<img src="../img/projects/squared-squares.svg" alt="Four packings from the current submission, for 11, 19, 29 and 41 unit squares, with the tilted squares in pink and the axis-aligned ones in blue." width="1600" height="1000">
+<figcaption>Drawn from the submission’s own certified packings.</figcaption>
+</figure>
 <div class="project-body">
 <p>Squares in Squares is a Kaggle packing competition built on a classic open problem. For every <em>n</em> from 1 to 1000, place <em>n</em> unit squares, at any position and rotation with no overlaps, inside the smallest axis-aligned square you can. The score sums <code>L<sub>n</sub>/√n − 1</code> over every <em>n</em>, so a perfect packing scores zero and every single configuration counts. For most <em>n</em> the best packing is unknown, and the best known ones tend to use oddly tilted squares.</p>
 <p>This repo is my toolkit and submission history. It reimplements the official metric, including the interval-arithmetic check that certifies tilted squares really are disjoint. It parses a public records page of packing diagrams into coordinates, and merges candidate files from public notebooks and my own searches one <em>n</em> at a time, keeping a change only when it is certified valid and strictly better. My own contributions include a fault-line dynamic program and an LP “snap” that tightens near-feasible layouts.</p>

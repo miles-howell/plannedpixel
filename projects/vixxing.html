@@ -50,6 +50,9 @@
 <div class="pixels" aria-hidden="true"><i style="background: #0b0d33"></i><i style="background: #2b2bb0"></i><i style="background: #7d7dff"></i><i style="background: #ff4fc8"></i><i style="background: #ffd400"></i><i style="background: #6fd94a"></i></div>
 <div class="project-layout">
 <div class="project-main">
+<figure class="project-shot">
+<img src="../img/projects/vixxing.webp" alt="The Vixxing dashboard: a list of enrolled employees, and the selected caller with a six-digit code typed in and a Verify caller button." width="1600" height="1000">
+</figure>
 <div class="project-body">
 <p>Most account-takeover defenses assume the attack comes through a login screen. The help desk is a different door, and usually a weaker one. An attacker looks up an employee, calls in sounding legitimate (“I got a new phone and I’m locked out”), and talks an agent into resetting MFA. Every check the agent can run, from caller ID to employee ID to date of birth, only proves the caller knows facts. Facts leak.</p>
 <p>Vixxing puts a possession factor on the phone call itself. Every employee enrolls a TOTP secret, the same RFC 6238 one-time-password standard their authenticator app already uses for login. When they call, the agent asks for the current 6-digit code, types it in, and gets a green <strong>Caller Verified</strong> or a red <strong>Do not proceed</strong>. Someone without the enrolled phone can’t pass, no matter how much they know about the person they’re pretending to be.</p>

@@ -33,7 +33,10 @@
       "A parser that turns the records page’s compact SVG diagrams into unit-square coordinates",
       "Per-n certified merges, so the best submission never regresses",
       "Fault-line DP and LP-snap searches for tilted packings"
-    ]
+    ],
+    "image": "img/projects/squared-squares.svg",
+    "image_alt": "Four packings from the current submission, for 11, 19, 29 and 41 unit squares, with the tilted squares in pink and the axis-aligned ones in blue.",
+    "image_caption": "Drawn from the submission’s own certified packings."
   },
   {
     "slug": "shrimple",
@@ -72,7 +75,10 @@
       "Seven moods, from calm to furious, driven by how long you’ve ignored it",
       "Native Win32 tray icon, menu and timer, with settings in the registry",
       "A preview example renders every mood on light and dark taskbars on any OS"
-    ]
+    ],
+    "image": "img/projects/shrimple.svg",
+    "image_alt": "The shrimp zoomed in from the Windows system tray, beside six of its moods: craning, slumped, hunched, curled, on fire and furious.",
+    "image_caption": "The real tray-icon frames, from the project’s README art."
   },
   {
     "slug": "bridge-crossing-rl-sim",
@@ -109,6 +115,8 @@
       "Dense worker rewards: +100 for each milestone, −1000 for drowning, and a small penalty for every step",
       "A Web Worker polls the simulation API so training runs without freezing the page, and you can inspect the worker’s live Q-value map"
     ],
+    "image": "img/projects/bridge-crossing-rl-sim.webp",
+    "image_alt": "Ten agents 45 seconds into training: the grid world with the river and house, the worker’s Q-value heatmap glowing around the log, the manager’s Q-table and the event stream.",
     "featured": true
   },
   {
@@ -146,6 +154,8 @@
       "Works with Microsoft Authenticator, Google Authenticator and any other TOTP app",
       "Accepts the current 30-second window plus one on either side to allow for clock drift"
     ],
+    "image": "img/projects/vixxing.webp",
+    "image_alt": "The Vixxing dashboard: a list of enrolled employees, and the selected caller with a six-digit code typed in and a Verify caller button.",
     "featured": true
   },
   {
@@ -179,6 +189,9 @@
       "PDF, Word (.docx) and CSV export from a floating export button",
       "Access control with an audit trail of who viewed which claim"
     ],
+    "image": "img/projects/claimtracker.webp",
+    "image_alt": "A raw database row of EDI 837 fields, rendered below as the matching boxes of a UB-04 claim form.",
+    "image_caption": "Illustration from the ClaimTracker site, with synthetic values.",
     "featured": true
   },
   {
@@ -213,7 +226,9 @@
       "A live banner showing your current assignment and how long you’ve had it",
       "An admin dashboard of active assignments with one-click end",
       "SQLite and WhiteNoise, so it runs almost anywhere"
-    ]
+    ],
+    "image": "img/projects/window-works.webp",
+    "image_alt": "The colour-coded office floor plan with free and occupied desks, a desk’s details, and the dialog for reserving a free desk."
   },
   {
     "slug": "employee-directory",
@@ -243,7 +258,10 @@
       "Syncs company events from SharePoint",
       "Custom themes and a lightweight analytics middleware",
       "A demo seed command, so the public version runs without real employee data"
-    ]
+    ],
+    "image": "img/projects/employee-directory.webp",
+    "image_alt": "The directory’s front page with this month’s birthdays and work anniversaries, and today’s highlighted.",
+    "image_caption": "Running on its demo seed data; every name is made up."
   },
   {
     "slug": "normalization-sim",
@@ -272,7 +290,10 @@
     "highlights": [
       "Command-line dials for population, days, normalization strength and minority share",
       "CSV metrics, matplotlib plots and an optional GIF of the agents over time"
-    ]
+    ],
+    "image": "img/projects/normalization-sim.svg",
+    "image_alt": "Agent opinions over 150 simulated days: under a normalizing feed they stay bunched near the middle, under an engagement feed they split into two camps at the extremes.",
+    "image_caption": "Plotted from a run of the simulation at its default settings."
   },
   {
     "slug": "sprite-mapper",
@@ -297,7 +318,9 @@
       "A tiny single-page tool for anyone who has squinted at a sprite sheet counting tiles. Upload the sheet, enter the tile size and any margin between tiles, and click: you get the tile’s x and y coordinates instantly, with the selected tile outlined in red.",
       "It’s one HTML file. No install, no build step."
     ],
-    "highlights": []
+    "highlights": [],
+    "image": "img/projects/sprite-mapper.webp",
+    "image_alt": "A tileset loaded into Sprite-Mapper with one tile outlined in red and its coordinates, x 23 and y 10, shown above."
   },
   {
     "slug": "fruit-classifier",
@@ -325,6 +348,9 @@
       "Written in high school, back when OpenAI was still focused on Gym, to understand neural networks without anyone else’s library doing the thinking. It’s one neuron with two inputs, a fruit’s weight and its color (0 for green, 1 for yellow), and one output: lime or lemon.",
       "Everything is done by hand: random weight initialization, a sigmoid forward pass, backpropagation through the sigmoid’s derivative, and gradient descent over 10,000 iterations. From the same era: a from-scratch linear regression that demonstrates gradient descent, and a reworked version of Karpathy’s min-char-rnn."
     ],
-    "highlights": []
+    "highlights": [],
+    "image": "img/projects/fruit-classifier.svg",
+    "image_alt": "The trained neuron: weight and colour feed a sigmoid through learned weights −0.94 and +14.49, beside its output across every weight and colour, from lime to lemon, with the four training fruits.",
+    "image_caption": "Weights from running the original training loop."
   }
 ]
