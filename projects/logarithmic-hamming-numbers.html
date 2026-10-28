@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-6P5LRT54KQ"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-6P5LRT54KQ');
+</script>
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Logarithmic-Hamming-Numbers · Miles Howell · Planned Pixel</title>
+<meta name="description" content="Finds the nth Hamming number, 2ⁱ·3ʲ·5ᵏ, by counting lattice points under a plane in log space, instead of generating every number before it. The billionth, all 844 digits, takes about a second.">
+<meta name="theme-color" content="#f6f6fb">
+<meta property="og:title" content="Logarithmic-Hamming-Numbers · Miles Howell · Planned Pixel">
+<meta property="og:description" content="Finds the nth Hamming number, 2ⁱ·3ʲ·5ᵏ, by counting lattice points under a plane in log space, instead of generating every number before it. The billionth, all 844 digits, takes about a second.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://plannedpixel.com/projects/logarithmic-hamming-numbers.html">
+<link rel="icon" href="../img/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="../img/favicon.ico" sizes="any">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Silkscreen:wght@400;700&amp;display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/style.css">
+</head>
+<body data-root="../">
+<a class="skip" href="#main">Skip to content</a>
+<header class="container">
+<div class="topbar">
+<a class="brand" href="../index.html"><span class="brand-mark" aria-hidden="true"><i class="ink"></i><i class="ink"></i><i class="gold"></i><i class="ink"></i><i class="pink"></i><i class="ink"></i><i class="ink"></i><i></i><i></i></span>MILES HOWELL</a>
+<nav class="site-nav" aria-label="Site">
+<a href="../index.html#work">Work</a>
+<a href="../index.html#workshop">Projects</a>
+<a href="../index.html#about">About</a>
+<a href="mailto:miles@plannedpixel.com">Contact</a>
+</nav>
+</div>
+</header>
+
+<main id="main" class="container" data-updated="2026-10-21">
+<p class="crumbs"><a href="../index.html">Home</a> / <a href="../index.html#workshop">Workshop</a> / Logarithmic-Hamming-Numbers</p>
+<div class="project-head">
+<div class="card-head"><p class="project-kind">Algorithms</p><span class="new" hidden>NEW</span></div>
+<h1 class="project-title">Logarithmic-Hamming-Numbers</h1>
+<p class="project-lede">Finds the nth Hamming number, 2ⁱ·3ʲ·5ᵏ, by counting lattice points under a plane in log space, instead of generating every number before it. The billionth, all 844 digits, takes about a second.</p>
+</div>
+<div class="pixels" aria-hidden="true"><i style="background: #0b0d33"></i><i style="background: #2b2bb0"></i><i style="background: #7d7dff"></i><i style="background: #ff4fc8"></i><i style="background: #ffd400"></i><i style="background: #6fd94a"></i></div>
+<div class="project-layout">
+<div class="project-main">
+<figure class="project-shot">
+<img src="../img/projects/logarithmic-hamming-numbers.svg" alt="Left: the 200 lattice points under the plane i ln 2 + j ln 3 + k ln 5 ≤ B, filling a tetrahedron, with the 200th Hamming number, 16200, on its face. Right: for n of one billion, the count misses by 287, then 2, 2 and −1, then lands on n, giving 2^1334 · 3^335 · 5^404." width="1600" height="1000">
+<figcaption>Drawn from the algorithm’s own counts and secant steps.</figcaption>
+</figure>
+<div class="project-body">
+<p>A Hamming number is a positive integer with no prime factors other than 2, 3 and 5: <code>H = 2<sup>i</sup> · 3<sup>j</sup> · 5<sup>k</sup></code>. The classic way to find the <em>n</em>th one is Dijkstra’s three-pointer method, which builds the whole sequence in order. That’s fine for <em>n</em> in the thousands, but it takes O(<em>n</em>) time and memory, so the billionth is out of reach.</p>
+<p>This takes a geometric route instead. Taking logs turns the product into a sum, <code>i ln 2 + j ln 3 + k ln 5 ≤ B</code>, so the Hamming numbers up to some bound are exactly the integer points inside a tetrahedron. Finding the <em>n</em>th one means finding the <em>B</em> with exactly <em>n</em> points under it. Counting them loops over <em>j</em> and <em>k</em> and gets the number of valid <em>i</em> with one division, so each count costs O(<em>n</em><sup>2/3</sup>).</p>
+<p>The bound starts from the tetrahedron’s volume, takes one Newton step using the volume’s derivative as the slope, and then switches to the secant method on the real counts. Because the count is a step function, it brackets the answer in a narrow band, lists the few points inside it, sorts them and picks the right one.</p>
+</div>
+<h2 class="h2">Highlights</h2>
+<ul class="highlights">
+<li>A volume estimate, one Newton step and the secant method usually land on the bound in a handful of counts</li>
+<li>Constant-time counting along each row of the lattice, with a small epsilon guarding against float rounding</li>
+<li>Only the points in the final band are ever turned into big integers, with powers of two done as bit shifts</li>
+<li>An interactive 3D Desmos graph of the tetrahedron and its lattice points</li>
+</ul>
+<div class="project-links">
+<a class="btn" href="https://github.com/miles-howell/Logarithmic-Hamming-Numbers" target="_blank" rel="noopener noreferrer">view source on GitHub →</a>
+<a class="btn" href="https://www.desmos.com/3d/d7d7piepsc" target="_blank" rel="noopener noreferrer">explore the 3D Desmos visualization →</a>
+<a class="btn" href="https://www.codewars.com/kata/526d84b98f428f14a60008da" target="_blank" rel="noopener noreferrer">the Codewars kata →</a>
+</div>
+</div>
+<dl class="facts">
+<div><dt>Access</dt><dd class="access-public">public</dd></div>
+<div><dt>Year</dt><dd>2026</dd></div>
+<div><dt>Built with</dt><dd>Python, Number theory, Desmos, Codewars</dd></div>
+</dl>
+</div>
+
+</main>
+
+<footer class="container site-foot">
+<div class="foot-line">
+<span>© 2026 Miles Howell · best viewed in any browser</span>
+<a href="mailto:miles@plannedpixel.com">miles@plannedpixel.com</a>
+</div>
+</footer>
+<script src="../js/site.js"></script>
+</body>
+</html>
