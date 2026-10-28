@@ -10,14 +10,10 @@
       "mpmath",
       "Kaggle"
     ],
-    "access": "public",
+    "access": "private",
     "year": "2026",
     "updated": "2026-10-28",
     "links": [
-      {
-        "label": "view source on GitHub",
-        "url": "https://github.com/miles-howell/squared-squares"
-      },
       {
         "label": "competition page on Kaggle",
         "url": "https://www.kaggle.com/competitions/squares-in-squares"
