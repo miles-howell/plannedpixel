@@ -275,6 +275,7 @@ img { max-width: 100%; }
   transition: opacity 0.12s ease, transform 0.12s ease;
 }
 .preview img { display: block; width: 100%; height: auto; aspect-ratio: 16 / 10; }
+.preview img[hidden] { display: none; }
 
 @media (prefers-reduced-motion: reduce) {
   .preview, .preview.is-visible { transition: none; transform: none; }

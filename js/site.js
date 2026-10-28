@@ -21,12 +21,35 @@
   var tip = document.createElement('div');
   tip.className = 'preview';
   tip.setAttribute('aria-hidden', 'true');
-  var img = document.createElement('img');
-  img.alt = '';
-  img.width = 1600;
-  img.height = 1000;
-  tip.appendChild(img);
   document.body.appendChild(tip);
+
+  // One <img> per project image, kept in the tip. Reusing a single <img> and
+  // changing its src leaves the previous project's image on screen until the
+  // new one has loaded, so each image gets its own element and only the one
+  // for the hovered link is shown, and only once it has loaded.
+  var shots = {};
+  var shown = null;   // the shot whose <img> is currently unhidden
+  var wanted = null;  // the shot for the link being hovered or focused, if any
+
+  function shot(src) {
+    var s = shots[src];
+    if (s) return s;
+    var el = document.createElement('img');
+    el.alt = '';
+    el.width = 1600;
+    el.height = 1000;
+    el.hidden = true;
+    s = shots[src] = { el: el, ready: false };
+    el.addEventListener('load', function () {
+      s.ready = true;
+      if (wanted === s) reveal();
+    });
+    el.src = src;
+    tip.appendChild(el);
+    return s;
+  }
+
+  function reveal() { tip.classList.toggle('is-visible', !!wanted && wanted.ready); }
 
   // Keep the preview inside the viewport: right of and below the point if it
   // fits, otherwise flipped to the other side (above `above`, when given).
@@ -40,12 +63,16 @@
   }
 
   function show(link) {
-    var src = link.getAttribute('data-preview');
-    if (img.getAttribute('src') !== src) img.src = src;
-    tip.classList.add('is-visible');
+    wanted = shot(link.getAttribute('data-preview'));
+    if (shown !== wanted) {
+      if (shown) shown.el.hidden = true;
+      wanted.el.hidden = false;
+      shown = wanted;
+    }
+    reveal();
   }
 
-  function hide() { tip.classList.remove('is-visible'); }
+  function hide() { wanted = null; reveal(); }
 
   links.forEach(function (link) {
     link.addEventListener('mouseenter', function (e) { show(link); place(e.clientX, e.clientY); });
@@ -60,4 +87,18 @@
   });
   window.addEventListener('scroll', hide, { passive: true });
   document.addEventListener('keydown', function (e) { if (e.key === 'Escape') hide(); });
+
+  // Warm the cache once the page has loaded and the browser is idle, so the
+  // first hover on each project doesn't wait on the network. The images are
+  // created here, not listed in the HTML, so crawlers and the initial page
+  // load never see them; skipped when the visitor has asked to save data.
+  function preload() {
+    links.forEach(function (link) { shot(link.getAttribute('data-preview')); });
+  }
+  var connection = navigator.connection;
+  if (!(connection && connection.saveData)) {
+    var idle = window.requestIdleCallback || function (fn) { setTimeout(fn, 200); };
+    if (document.readyState === 'complete') idle(preload);
+    else window.addEventListener('load', function () { idle(preload); });
+  }
 })();
