@@ -104,7 +104,8 @@
       "Hindsight Experience Replay lets the worker learn from failed attempts by relabeling them as successes toward wherever it actually ended up",
       "Dense worker rewards: +100 for each milestone, −1000 for drowning, and a small penalty for every step",
       "A Web Worker polls the simulation API so training runs without freezing the page, and you can inspect the worker’s live Q-value map"
-    ]
+    ],
+    "featured": true
   },
   {
     "slug": "vixxing",
@@ -140,7 +141,8 @@
       "Enrollment by email: the server generates a secret, renders it as a QR code and sends it through Microsoft Graph",
       "Works with Microsoft Authenticator, Google Authenticator and any other TOTP app",
       "Accepts the current 30-second window plus one on either side to allow for clock drift"
-    ]
+    ],
+    "featured": true
   },
   {
     "slug": "claimtracker",
@@ -167,7 +169,8 @@
       "Live adjudication status for the selected claim",
       "PDF, Word (.docx) and CSV export from a floating export button",
       "Access control with an audit trail of who viewed which claim"
-    ]
+    ],
+    "featured": true
   },
   {
     "slug": "window-works",
