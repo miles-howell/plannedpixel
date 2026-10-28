@@ -50,6 +50,9 @@
 <div class="pixels" aria-hidden="true"><i style="background: #0b0d33"></i><i style="background: #2b2bb0"></i><i style="background: #7d7dff"></i><i style="background: #ff4fc8"></i><i style="background: #ffd400"></i><i style="background: #6fd94a"></i></div>
 <div class="project-layout">
 <div class="project-main">
+<figure class="project-shot">
+<img src="../img/projects/bridge-crossing-rl-sim.webp" alt="Ten agents 45 seconds into training: the grid world with the river and house, the worker’s Q-value heatmap glowing around the log, the manager’s Q-table and the event stream." width="1600" height="1000">
+</figure>
 <div class="project-body">
 <p>A Django web app for watching a hierarchical reinforcement learning agent learn in real time. The agent lives in a grid world split by a river. To get home it has to pick up a bridge piece, place it in the river, cross, and walk to the house.</p>
 <p>The work is split between two agents. The <strong>manager</strong> only sees the big picture (do I have the bridge piece, is it placed, have I crossed?) and issues sub-goals like <code>GOTO_LOG</code> or <code>GOTO_RIVER</code>. The <strong>worker</strong> sees its own position and moves up, down, left and right to reach whatever sub-goal it was handed.</p>

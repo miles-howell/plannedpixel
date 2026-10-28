@@ -2,9 +2,11 @@
 """Build the project pages from data/projects.json.
 
 Writes:
-  projects/<slug>.html   one page per project
+  projects/<slug>.html   one page per project, with the project's image at the top
   index.html             only the parts between <!-- BEGIN x --> / <!-- END x --> markers:
                          the featured cards, the workshop table and the project count
+
+Links to a project carry data-preview="<image>", which js/site.js shows as a hover preview.
 
 Run it after editing data/projects.json:
 
@@ -78,11 +80,16 @@ def tags(project):
     return f'<ul class="tags" aria-label="Built with">{items}</ul>'
 
 
+def preview(project):
+    """The data-preview attribute js/site.js turns into a hover preview, for links on the homepage."""
+    return f' data-preview="{esc(project["image"])}"'
+
+
 def card(project):
     """A featured project on the homepage."""
     return f"""<article class="card" data-updated="{esc(project['updated'])}">
 <div class="card-head"><p class="card-kind">{esc(project['kind'])}</p><span class="new" hidden>NEW</span></div>
-<h3 class="card-title"><a href="projects/{project['slug']}.html">{esc(project['title'])}</a></h3>
+<h3 class="card-title"><a href="projects/{project['slug']}.html"{preview(project)}>{esc(project['title'])}</a></h3>
 <p class="summary">{esc(project['summary'])}</p>
 {tags(project)}
 </article>"""
@@ -92,7 +99,7 @@ def row(project):
     """Every other project, as a row in the homepage's workshop table."""
     return (
         f'<tr data-updated="{esc(project["updated"])}">'
-        f'<th scope="row"><a href="projects/{project["slug"]}.html">{esc(project["title"])}</a><span class="new" hidden>NEW</span></th>'
+        f'<th scope="row"><a href="projects/{project["slug"]}.html"{preview(project)}>{esc(project["title"])}</a><span class="new" hidden>NEW</span></th>'
         f'<td>{esc(project["summary"])}</td>'
         f'<td class="year">{esc(project["year"])}</td></tr>'
     )
@@ -124,6 +131,15 @@ def project_page(project):
         items = "\n".join(f"<li>{h}</li>" for h in project["highlights"])
         highlights = f'<h2 class="h2">Highlights</h2>\n<ul class="highlights">\n{items}\n</ul>'
 
+    caption = ""
+    if project.get("image_caption"):
+        caption = f'\n<figcaption>{esc(project["image_caption"])}</figcaption>'
+    figure = (
+        f'<figure class="project-shot">\n'
+        f'<img src="{root}{esc(project["image"])}" alt="{esc(project["image_alt"])}" width="1600" height="1000">'
+        f"{caption}\n</figure>"
+    )
+
     if project["links"]:
         buttons = "\n".join(
             f'<a class="btn" href="{esc(link["url"])}" target="_blank" rel="noopener noreferrer">{esc(link["label"])} →</a>'
@@ -152,6 +168,7 @@ def project_page(project):
 <div class="pixels" aria-hidden="true"><i style="background: #0b0d33"></i><i style="background: #2b2bb0"></i><i style="background: #7d7dff"></i><i style="background: #ff4fc8"></i><i style="background: #ffd400"></i><i style="background: #6fd94a"></i></div>
 <div class="project-layout">
 <div class="project-main">
+{figure}
 <div class="project-body">
 {body}
 </div>
@@ -194,6 +211,10 @@ def main():
     for p in projects:
         if p["access"] not in ACCESS:
             sys.exit(f"{p['slug']}: unknown access {p['access']!r}")
+        if not p.get("image") or not p.get("image_alt"):
+            sys.exit(f"{p['slug']}: needs an image and image_alt")
+        if not (ROOT / p["image"]).is_file():
+            sys.exit(f"{p['slug']}: image {p['image']} not found")
 
     total = len(projects)
     out_dir = ROOT / "projects"

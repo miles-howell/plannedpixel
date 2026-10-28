@@ -50,6 +50,10 @@
 <div class="pixels" aria-hidden="true"><i style="background: #0b0d33"></i><i style="background: #2b2bb0"></i><i style="background: #7d7dff"></i><i style="background: #ff4fc8"></i><i style="background: #ffd400"></i><i style="background: #6fd94a"></i></div>
 <div class="project-layout">
 <div class="project-main">
+<figure class="project-shot">
+<img src="../img/projects/claimtracker.webp" alt="A raw database row of EDI 837 fields, rendered below as the matching boxes of a UB-04 claim form." width="1600" height="1000">
+<figcaption>Illustration from the ClaimTracker site, with synthetic values.</figcaption>
+</figure>
 <div class="project-body">
 <p>A replacement for an aging internal claims viewer that nobody had documentation for. Healthcare claims arrive as X12 EDI 837 files, both institutional (837I) and professional (837P), and get parsed into a SQL Server database. ClaimTracker reads them back out and shows each claim the way people actually know it: as a UB-04 or CMS-1500 form.</p>
 <p>The forms are print-accurate, down to the real numbered-box layout. Staff can browse by date, provider or member, or search directly, see the claim’s live adjudication status, and export the open claim as a PDF, a Word document or a CSV.</p>
