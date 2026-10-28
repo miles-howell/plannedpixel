@@ -26,7 +26,7 @@ The site is plain static HTML, CSS and a little JavaScript. There's no build ste
 
 A project shows a **NEW** badge while its `updated` date is less than 45 days old.
 
-The image sits at the top of the project page, and shows as a preview when you hover or focus a link to the project on the homepage. Links the build generates get the preview automatically; a hand-written link gets one with `data-preview="img/projects/<file>"`. Keep images 16:10 so the preview and the page don't jump.
+The image sits at the top of the project page, and shows as a preview when you hover or focus a link to the project on the homepage. Links the build generates get the preview automatically; a hand-written link gets one with `data-preview="img/projects/<file>"`. Keep images 16:10 so the preview and the page don't jump. The preview images are fetched by `js/site.js` after the page has loaded (not listed in the HTML), so the first hover on each is instant.
 
 ## Preview locally
 
