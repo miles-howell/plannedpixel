@@ -5,7 +5,7 @@ Writes:
   projects/<slug>.html   one page per project, each a stop on the ring
   js/ring.js             the ring order, used by the "random" button
   index.html             only the parts between <!-- BEGIN x --> / <!-- END x --> markers:
-                         the workshop cards, the project count and the ring links
+                         the featured cards, the workshop table, the project count and the ring links
 
 Run it after editing data/projects.json:
 
@@ -60,7 +60,7 @@ def head(title, description, path, root):
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{esc(title)}</title>
 <meta name="description" content="{esc(description)}">
-<meta name="theme-color" content="#04051a">
+<meta name="theme-color" content="#f6f6fb">
 <meta property="og:title" content="{esc(title)}">
 <meta property="og:description" content="{esc(description)}">
 <meta property="og:type" content="website">
@@ -69,7 +69,7 @@ def head(title, description, path, root):
 <link rel="icon" href="{root}img/favicon.ico" sizes="any">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Silkscreen:wght@400;700&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Silkscreen:wght@400;700&amp;display=swap" rel="stylesheet">
 <link rel="stylesheet" href="{root}css/style.css">
 </head>"""
 
@@ -79,18 +79,38 @@ def tags(project):
     return f'<ul class="tags" aria-label="Built with">{items}</ul>'
 
 
-def access(project):
-    label, cls = ACCESS[project["access"]]
-    return f'<span class="{cls}">[{esc(label)}]</span>'
-
-
 def card(project):
+    """A featured project on the homepage."""
     return f"""<article class="card" data-updated="{esc(project['updated'])}">
-<div class="card-head"><h3 class="card-title"><a href="projects/{project['slug']}.html">{esc(project['title'])}</a></h3><span class="new" hidden>NEW!</span></div>
-<p>{esc(project['summary'])}</p>
+<div class="card-head"><p class="card-kind">{esc(project['kind'])}</p><span class="new" hidden>NEW</span></div>
+<h3 class="card-title"><a href="projects/{project['slug']}.html">{esc(project['title'])}</a></h3>
+<p class="summary">{esc(project['summary'])}</p>
 {tags(project)}
-<div class="meta">{access(project)}<span>{esc(project['year'])}</span></div>
 </article>"""
+
+
+def row(project):
+    """Every other project, as a row in the homepage's workshop table."""
+    return (
+        f'<tr data-updated="{esc(project["updated"])}">'
+        f'<th scope="row"><a href="projects/{project["slug"]}.html">{esc(project["title"])}</a><span class="new" hidden>NEW</span></th>'
+        f'<td>{esc(project["summary"])}</td>'
+        f'<td class="year">{esc(project["year"])}</td></tr>'
+    )
+
+
+def topbar(root):
+    return f"""<header class="container">
+<div class="topbar">
+<a class="brand" href="{root}index.html"><span class="brand-mark" aria-hidden="true"><i class="ink"></i><i class="ink"></i><i class="gold"></i><i class="ink"></i><i class="pink"></i><i class="ink"></i><i class="ink"></i><i></i><i></i></span>MILES HOWELL</a>
+<nav class="site-nav" aria-label="Site">
+<a href="{root}index.html#work">Work</a>
+<a href="{root}index.html#workshop">Projects</a>
+<a href="{root}index.html#about">About</a>
+<a href="mailto:{EMAIL}">Contact</a>
+</nav>
+</div>
+</header>"""
 
 
 def ring_link(target, root, rel):
@@ -112,13 +132,6 @@ def ring_nav(prev, nxt, root):
 </nav>"""
 
 
-def ring_footer_text(root):
-    return (
-        '<p class="ring-foot">a ring of one person\'s projects: every project is a stop · '
-        "© 2026 Miles Howell · best viewed in any browser</p>"
-    )
-
-
 def project_page(project, number, total, prev, nxt):
     root = "../"
     slug = project["slug"]
@@ -129,11 +142,11 @@ def project_page(project, number, total, prev, nxt):
     highlights = ""
     if project["highlights"]:
         items = "\n".join(f"<li>{h}</li>" for h in project["highlights"])
-        highlights = f'<h2 class="h2">~ highlights ~</h2>\n<ul class="highlights">\n{items}\n</ul>'
+        highlights = f'<h2 class="h2">Highlights</h2>\n<ul class="highlights">\n{items}\n</ul>'
 
     if project["links"]:
         buttons = "\n".join(
-            f'<a class="ring-btn" href="{esc(link["url"])}" target="_blank" rel="noopener noreferrer">{esc(link["label"])} »</a>'
+            f'<a class="btn" href="{esc(link["url"])}" target="_blank" rel="noopener noreferrer">{esc(link["label"])} →</a>'
             for link in project["links"]
         )
         links = f'<div class="project-links">\n{buttons}\n</div>'
@@ -147,38 +160,44 @@ def project_page(project, number, total, prev, nxt):
     return f"""{head(f"{title} · Miles Howell · Planned Pixel", project["summary"], f"projects/{slug}.html", root)}
 <body data-ring="{slug}" data-root="{root}">
 <a class="skip" href="#main">Skip to content</a>
-<div class="wrap">
+{topbar(root)}
 
-<header class="panel site-head compact">
-<div class="kicker">~*~ stop {number} of {total} on the planned pixel ring ~*~</div>
-<p class="site-title"><a href="{root}index.html">MILES HOWELL</a></p>
-</header>
-
-<main id="main" class="panel panel-pad" data-updated="{esc(project['updated'])}">
-<p class="crumbs"><a href="{root}index.html">home</a> » <a href="{root}index.html#workshop">the workshop</a> » {esc(title)}</p>
-<div class="card-head" style="margin-top: 18px"><p class="project-kind">{esc(project['kind'])}</p><span class="new" hidden>NEW!</span></div>
+<main id="main" class="container" data-updated="{esc(project['updated'])}">
+<p class="crumbs"><a href="{root}index.html">Home</a> / <a href="{root}index.html#workshop">Workshop</a> / {esc(title)}</p>
+<div class="project-head">
+<div class="card-head"><p class="project-kind">{esc(project['kind'])}</p><span class="new" hidden>NEW</span></div>
 <h1 class="project-title">{esc(title)}</h1>
 <p class="project-lede">{esc(project['summary'])}</p>
-<dl class="facts">
-<div><dt>access:</dt><dd class="{cls}">{esc(label)}</dd></div>
-<div><dt>year:</dt><dd>{esc(project['year'])}</dd></div>
-<div><dt>built with:</dt><dd>{esc(", ".join(project['tags']))}</dd></div>
-</dl>
+</div>
+<div class="pixels" aria-hidden="true"><i style="background: #0b0d33"></i><i style="background: #2b2bb0"></i><i style="background: #7d7dff"></i><i style="background: #ff4fc8"></i><i style="background: #ffd400"></i><i style="background: #6fd94a"></i></div>
+<div class="project-layout">
+<div class="project-main">
 <div class="project-body">
 {body}
 </div>
 {highlights}
 {links}
+</div>
+<dl class="facts">
+<div><dt>Access</dt><dd class="{cls}">{esc(label)}</dd></div>
+<div><dt>Year</dt><dd>{esc(project['year'])}</dd></div>
+<div><dt>Built with</dt><dd>{esc(", ".join(project['tags']))}</dd></div>
+</dl>
+</div>
+
+<section class="ring-box" id="ring" aria-labelledby="ring-title">
+<p class="small">You are at stop {number} of {total} on</p>
+<h2 class="ring-title" id="ring-title">✦ The Planned Pixel Ring ✦</h2>
+{ring_nav(prev, nxt, root)}
+</section>
 </main>
 
-<footer class="panel ring" id="ring">
-<p class="small" style="margin: 0">you are at stop {number} of {total} on</p>
-<h2 class="ring-title">✦ THE PLANNED PIXEL RING ✦</h2>
-{ring_nav(prev, nxt, root)}
-{ring_footer_text(root)}
-</footer>
-
+<footer class="container site-foot">
+<div class="foot-line">
+<span>© 2026 Miles Howell · best viewed in any browser</span>
+<a href="mailto:{EMAIL}">{EMAIL}</a>
 </div>
+</footer>
 <script src="{root}js/ring.js"></script>
 <script src="{root}js/site.js"></script>
 </body>
@@ -190,7 +209,7 @@ def replace_between(text, name, content):
     pattern = re.compile(rf"(<!-- BEGIN {name} -->)(.*?)(<!-- END {name} -->)", re.S)
     if not pattern.search(text):
         sys.exit(f"index.html is missing the <!-- BEGIN {name} --> / <!-- END {name} --> markers")
-    return pattern.sub(lambda m: f"{m.group(1)}{content}{m.group(3)}", text, count=1)
+    return pattern.sub(lambda m: f"{m.group(1)}{content}{m.group(3)}", text)
 
 
 def main():
@@ -224,8 +243,12 @@ def main():
 
     index_path = ROOT / "index.html"
     index = index_path.read_text(encoding="utf-8")
-    cards = "\n\n".join(card(p) for p in projects)
-    index = replace_between(index, "workshop", f"\n{cards}\n")
+    featured = [p for p in projects if p.get("featured")]
+    rest = [p for p in projects if not p.get("featured")]
+    cards = "\n\n".join(card(p) for p in featured)
+    rows = "\n".join(row(p) for p in rest)
+    index = replace_between(index, "featured", f"\n{cards}\n")
+    index = replace_between(index, "workshop", f"\n{rows}\n")
     index = replace_between(index, "count", str(total))
     index = replace_between(index, "ring", f"\n{ring_nav(projects[-1], projects[0], '')}\n")
     index_path.write_text(index, encoding="utf-8")
