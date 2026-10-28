@@ -90,6 +90,10 @@
     "updated": "2026-09-17",
     "links": [
       {
+        "label": "visit the Bridge-Crossing RL Sim website",
+        "url": "https://nigel.plannedpixel.com"
+      },
+      {
         "label": "view source on GitHub",
         "url": "https://github.com/miles-howell/Bridge-Crossing-RL-Sim"
       }
@@ -158,7 +162,12 @@
     "access": "work",
     "year": "2026",
     "updated": "2026-10-09",
-    "links": [],
+    "links": [
+      {
+        "label": "visit the EDI837 website",
+        "url": "https://edi837.plannedpixel.com"
+      }
+    ],
     "body": [
       "A replacement for an aging internal claims viewer that nobody had documentation for. Healthcare claims arrive as X12 EDI 837 files, both institutional (837I) and professional (837P), and get parsed into a SQL Server database. ClaimTracker reads them back out and shows each claim the way people actually know it: as a UB-04 or CMS-1500 form.",
       "The forms are print-accurate, down to the real numbered-box layout. Staff can browse by date, provider or member, or search directly, see the claim’s live adjudication status, and export the open claim as a PDF, a Word document or a CSV.",
@@ -186,6 +195,10 @@
     "year": "2026",
     "updated": "2026-08-19",
     "links": [
+      {
+        "label": "visit the Window-Works website",
+        "url": "https://floorplan.plannedpixel.com/"
+      },
       {
         "label": "view source on GitHub",
         "url": "https://github.com/miles-howell/Window-Works"
