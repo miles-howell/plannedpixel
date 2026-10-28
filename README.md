@@ -1,8 +1,6 @@
 # plannedpixel.com
 
-Miles Howell's corner of the web: a webring-style showcase of projects, with a clean light theme and late-90s touches: pixel fonts, 88×31 buttons and a webring.
-
-Every project has its own page, and each page is a stop on **the Planned Pixel Ring**. The prev/next links at the bottom walk through every project and back to the homepage.
+Miles Howell's corner of the web: a showcase of projects, with a clean light theme and late-90s touches: pixel fonts and 88×31 buttons.
 
 The site is plain static HTML, CSS and a little JavaScript. There's no build step on deploy.
 
@@ -12,10 +10,10 @@ The site is plain static HTML, CSS and a little JavaScript. There's no build ste
 |---|---|
 | `index.html` | Homepage, written by hand apart from the generated blocks between `<!-- BEGIN … -->` / `<!-- END … -->` markers |
 | `projects/*.html` | One page per project, **generated**; don't edit by hand |
-| `data/projects.json` | The project list. Its order is the ring order |
-| `tools/build.py` | Generates the project pages, `js/ring.js` and the homepage's featured cards, workshop table and ring links |
+| `data/projects.json` | The project list |
+| `tools/build.py` | Generates the project pages and the homepage's featured cards, workshop table and project count |
 | `css/style.css` | The Daylight Pixel theme |
-| `js/site.js` | Extras: NEW badges and the random ring stop |
+| `js/site.js` | Extras: NEW badges |
 | `img/button-88x31.png` | The 88×31 link-back button |
 | `404.html` | "Lost in space" page |
 
