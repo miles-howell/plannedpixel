@@ -292,7 +292,7 @@ img { max-width: 100%; }
 .cta p { margin: 0; }
 .cta a:not(.btn) { color: var(--ink); font-weight: 600; }
 
-/* ---------- footer & ring ---------- */
+/* ---------- footer ---------- */
 
 .site-foot { display: flex; flex-direction: column; gap: 20px; padding-top: 56px; padding-bottom: 40px; }
 
@@ -325,35 +325,6 @@ img { max-width: 100%; }
   font-size: 14px;
   color: var(--ink-soft);
 }
-
-.ring-title { margin: 0; font-family: var(--pixel); font-size: 13px; font-weight: 400; color: var(--ink); }
-
-.ring-nav { display: flex; flex-wrap: wrap; gap: 8px; }
-.ring-btn {
-  display: inline-flex;
-  align-items: center;
-  min-height: 44px;
-  padding: 0 14px;
-  border: 2px solid var(--ink);
-  background: var(--card);
-  color: var(--ink);
-  font-family: var(--pixel);
-  font-size: 12px;
-  text-decoration: none;
-}
-.ring-btn:hover { background: var(--ink); color: #fff; }
-
-.ring-box {
-  display: flex;
-  flex-direction: column;
-  gap: 14px;
-  margin-top: 64px;
-  padding: 28px;
-  background: var(--card);
-  border: 2px solid var(--ink);
-  box-shadow: var(--shadow);
-}
-.ring-box p { margin: 0; }
 
 /* ---------- project pages ---------- */
 
