@@ -51,6 +51,10 @@
     "updated": "2026-10-28",
     "links": [
       {
+        "label": "visit the Shrimple website",
+        "url": "https://shrimple.plannedpixel.com"
+      },
+      {
         "label": "view source on GitHub",
         "url": "https://github.com/miles-howell/shrimple"
       },
