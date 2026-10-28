@@ -1,14 +1,95 @@
 [
   {
+    "slug": "squared-squares",
+    "title": "Squared-Squares",
+    "kind": "Optimization",
+    "summary": "Kaggle’s Squares in Squares competition: for every n from 1 to 1000, fit n unit squares into the smallest possible square. Scoring tools, a certified per-n merge pipeline and my own packing searches.",
+    "tags": [
+      "Python",
+      "NumPy",
+      "mpmath",
+      "Kaggle"
+    ],
+    "access": "private",
+    "year": "2026",
+    "updated": "2026-10-28",
+    "links": [
+      {
+        "label": "competition page on Kaggle",
+        "url": "https://www.kaggle.com/competitions/squares-in-squares"
+      },
+      {
+        "label": "my Kaggle profile",
+        "url": "https://www.kaggle.com/mileshow"
+      }
+    ],
+    "body": [
+      "Squares in Squares is a Kaggle packing competition built on a classic open problem. For every <em>n</em> from 1 to 1000, place <em>n</em> unit squares, at any position and rotation with no overlaps, inside the smallest axis-aligned square you can. The score sums <code>L<sub>n</sub>/√n − 1</code> over every <em>n</em>, so a perfect packing scores zero and every single configuration counts. For most <em>n</em> the best packing is unknown, and the best known ones tend to use oddly tilted squares.",
+      "This repo is my toolkit and submission history. It reimplements the official metric, including the interval-arithmetic check that certifies tilted squares really are disjoint. It parses a public records page of packing diagrams into coordinates, and merges candidate files from public notebooks and my own searches one <em>n</em> at a time, keeping a change only when it is certified valid and strictly better. My own contributions include a fault-line dynamic program and an LP “snap” that tightens near-feasible layouts.",
+      "The submission started at the 28.94 score of a plain grid and now sits at about 22.26."
+    ],
+    "highlights": [
+      "A local scorer that reproduces the official metric, with float64 screening and certified recheck of close pairs at 60 digits",
+      "A parser that turns the records page’s compact SVG diagrams into unit-square coordinates",
+      "Per-n certified merges, so the best submission never regresses",
+      "Fault-line DP and LP-snap searches for tilted packings"
+    ]
+  },
+  {
+    "slug": "shrimple",
+    "title": "Shrimple",
+    "kind": "Desktop app",
+    "summary": "A tiny pixel-art shrimp that lives in your Windows system tray and reminds you to sit up straight. No sounds, no pop-ups, just a shrimp.",
+    "tags": [
+      "Rust",
+      "Win32",
+      "Pixel art",
+      "GitHub Actions"
+    ],
+    "access": "public",
+    "year": "2026",
+    "updated": "2026-10-28",
+    "links": [
+      {
+        "label": "view source on GitHub",
+        "url": "https://github.com/miles-howell/shrimple"
+      },
+      {
+        "label": "download the latest release",
+        "url": "https://github.com/miles-howell/shrimple/releases/latest"
+      }
+    ],
+    "body": [
+      "Shrimple puts a 16×16 shrimp in its own little patch of sea in your system tray. When it’s time to check your posture, the shrimp starts slouching, probably the way you are. Ignore it and it curls up, the seaweed wilts, and eventually the water boils orange and the shrimp turns furious and hops in place. Sit up, click it, and it calms down and starts the countdown again.",
+      "Reminders are every 5 minutes to 1½ hours from the right-click menu. The timer resets on its own when you’ve clearly stepped away: after 5 minutes without input, on unlock, and on wake from sleep. It ships as a single <code>shrimple.exe</code>, built and released by GitHub Actions on every version tag."
+    ],
+    "highlights": [
+      "All the pixel art is ASCII in the source, drawn into the tray icon at runtime",
+      "Seven moods, from calm to furious, driven by how long you’ve ignored it",
+      "Native Win32 tray icon, menu and timer, with settings in the registry",
+      "A preview example renders every mood on light and dark taskbars on any OS"
+    ]
+  },
+  {
     "slug": "bridge-crossing-rl-sim",
     "title": "Bridge-Crossing RL Sim",
     "kind": "Machine learning",
     "summary": "Hierarchical reinforcement learning in a grid world. A manager agent picks sub-goals, a worker agent walks there, and together they learn to fetch a log, build a bridge and get home. A “profit-sharing” reward keeps their goals aligned.",
-    "tags": ["Python", "PyTorch", "Django", "Web Workers"],
+    "tags": [
+      "Python",
+      "PyTorch",
+      "Django",
+      "Web Workers"
+    ],
     "access": "public",
     "year": "2026",
     "updated": "2026-09-17",
-    "links": [{"label": "view source on GitHub", "url": "https://github.com/miles-howell/Bridge-Crossing-RL-Sim"}],
+    "links": [
+      {
+        "label": "view source on GitHub",
+        "url": "https://github.com/miles-howell/Bridge-Crossing-RL-Sim"
+      }
+    ],
     "body": [
       "A Django web app for watching a hierarchical reinforcement learning agent learn in real time. The agent lives in a grid world split by a river. To get home it has to pick up a bridge piece, place it in the river, cross, and walk to the house.",
       "The work is split between two agents. The <strong>manager</strong> only sees the big picture (do I have the bridge piece, is it placed, have I crossed?) and issues sub-goals like <code>GOTO_LOG</code> or <code>GOTO_RIVER</code>. The <strong>worker</strong> sees its own position and moves up, down, left and right to reach whatever sub-goal it was handed.",
@@ -26,11 +107,21 @@
     "title": "Vixxing",
     "kind": "Security tooling",
     "summary": "Caller verification for IT help desks. Before anyone resets a password or MFA, the caller reads a live 6-digit TOTP code off their phone. Facts leak. Possession doesn’t.",
-    "tags": ["Django", "PyOTP", "TOTP", "Microsoft Graph"],
+    "tags": [
+      "Django",
+      "PyOTP",
+      "TOTP",
+      "Microsoft Graph"
+    ],
     "access": "public",
     "year": "2026",
     "updated": "2026-08-18",
-    "links": [{"label": "view source on GitHub", "url": "https://github.com/miles-howell/Vixxing"}],
+    "links": [
+      {
+        "label": "view source on GitHub",
+        "url": "https://github.com/miles-howell/Vixxing"
+      }
+    ],
     "body": [
       "Most account-takeover defenses assume the attack comes through a login screen. The help desk is a different door, and usually a weaker one. An attacker looks up an employee, calls in sounding legitimate (“I got a new phone and I’m locked out”), and talks an agent into resetting MFA. Every check the agent can run, from caller ID to employee ID to date of birth, only proves the caller knows facts. Facts leak.",
       "Vixxing puts a possession factor on the phone call itself. Every employee enrolls a TOTP secret, the same RFC 6238 one-time-password standard their authenticator app already uses for login. When they call, the agent asks for the current 6-digit code, types it in, and gets a green <strong>Caller Verified</strong> or a red <strong>Do not proceed</strong>. Someone without the enrolled phone can’t pass, no matter how much they know about the person they’re pretending to be.",
@@ -48,7 +139,12 @@
     "title": "ClaimTracker",
     "kind": "Healthcare · legacy replacement",
     "summary": "A Django rebuild of a legacy healthcare claims viewer. Reads EDI 837 claims and renders print-accurate UB-04 and CMS-1500 forms, with PDF, Word and CSV export.",
-    "tags": ["Django", "SQL Server", "X12 EDI", "Playwright"],
+    "tags": [
+      "Django",
+      "SQL Server",
+      "X12 EDI",
+      "Playwright"
+    ],
     "access": "work",
     "year": "2026",
     "updated": "2026-10-09",
@@ -70,11 +166,20 @@
     "title": "Window-Works",
     "kind": "Internal tooling",
     "summary": "An interactive office floor plan. Look up your seat, reserve a free desk, and let admins repaint the layout without touching the database.",
-    "tags": ["Django", "JavaScript", "SQLite"],
+    "tags": [
+      "Django",
+      "JavaScript",
+      "SQLite"
+    ],
     "access": "public",
     "year": "2026",
     "updated": "2026-08-19",
-    "links": [{"label": "view source on GitHub", "url": "https://github.com/miles-howell/Window-Works"}],
+    "links": [
+      {
+        "label": "view source on GitHub",
+        "url": "https://github.com/miles-howell/Window-Works"
+      }
+    ],
     "body": [
       "The office floor plan used to live in a spreadsheet. Window-Works turns it into an interactive map with color-coded departments, badges for free, occupied and kiosk desks, and a detail view for every seat showing who sits there and any notes.",
       "Staff type their name to find their current desk, with no account or approval needed, and can claim any free desk, which automatically ends their previous assignment for the day. Admins get a visual layout editor: select a group of cells, assign a department, override colors or notes, and record temporary or permanent desk and work-from-home assignments."
@@ -91,11 +196,20 @@
     "title": "Employee Directory",
     "kind": "Legacy migration",
     "summary": "A company directory built over a legacy Microsoft Access database, sorted by department and hierarchy, with birthdays and work anniversaries on the front page.",
-    "tags": ["Django", "MS Access", "SharePoint"],
+    "tags": [
+      "Django",
+      "MS Access",
+      "SharePoint"
+    ],
     "access": "public",
     "year": "2026",
     "updated": "2026-08-31",
-    "links": [{"label": "view source on GitHub", "url": "https://github.com/miles-howell/employee-database"}],
+    "links": [
+      {
+        "label": "view source on GitHub",
+        "url": "https://github.com/miles-howell/employee-database"
+      }
+    ],
     "body": [
       "An internal employee directory built on top of a legacy Microsoft Access database, which kept working the whole time. Employees are grouped by department and ordered by the real reporting hierarchy, and department heads and supervisors get a watermark on their cards.",
       "The homepage celebrates everyone with a birthday or work anniversary this month, with extra emphasis on today’s. An advanced search filters by department, title, hire date and supervisor status, and any set of results exports to CSV."
@@ -108,35 +222,24 @@
     ]
   },
   {
-    "slug": "toy-browser",
-    "title": "Toy Browser",
-    "kind": "Learning in public",
-    "summary": "A web browser from scratch in Python, following browser.engineering: sockets, TLS, an HTML parser, CSS and layout. A Rust rewrite comes next.",
-    "tags": ["Python", "Tkinter", "Sockets"],
-    "access": "private",
-    "year": "2026",
-    "updated": "2026-05-27",
-    "links": [],
-    "body": [
-      "There’s no better way to understand the web than to build the thing that reads it. I’m working through <a href=\"https://browser.engineering\">Web Browser Engineering</a> and writing my own browser in Python as I go.",
-      "So far it opens raw sockets, speaks HTTP over TLS, decodes HTML entities, builds a document tree with its own HTML parser, applies CSS with tag and descendant selectors, lays out blocks and text, and paints the result to a Tkinter canvas. Once it’s semi-functional, the plan is to rewrite the whole thing in Rust."
-    ],
-    "highlights": [
-      "A hand-written HTML parser and document tree",
-      "A small CSS parser with cascade priority",
-      "Block and inline layout painted through a display list"
-    ]
-  },
-  {
     "slug": "normalization-sim",
     "title": "Normalization Sim",
     "kind": "Simulation",
     "summary": "An agent-based toy model of what happens when AI pulls everyone’s opinions toward the mean. Tracks stability, Gini inequality, opinion diversity and trust over time.",
-    "tags": ["Python", "NumPy", "matplotlib"],
+    "tags": [
+      "Python",
+      "NumPy",
+      "matplotlib"
+    ],
     "access": "public",
     "year": "2025",
     "updated": "2025-08-19",
-    "links": [{"label": "view source on GitHub", "url": "https://github.com/miles-howell/Normalization-Simulation"}],
+    "links": [
+      {
+        "label": "view source on GitHub",
+        "url": "https://github.com/miles-howell/Normalization-Simulation"
+      }
+    ],
     "body": [
       "What happens to a society when an AI quietly nudges everyone’s opinions toward the average? What if it does the opposite and amplifies the extremes for engagement? This simulation is a hackable toy for poking at those questions, built to be visual enough for a Primer-style explainer.",
       "Agents are split into a majority and a minority with unequal starting resources, and “outlier” movements push on altruism, trust, polarization and policy. One dial, lambda, sets how hard opinions are pulled toward the mean, and engagement mode flips it to push them apart instead. Every simulated day it records stability, inequality (Gini), opinion and affiliation diversity, average trust, and how many minority agents starve.",
@@ -148,69 +251,27 @@
     ]
   },
   {
-    "slug": "christmas-packing-2025",
-    "title": "Christmas Packing 2025",
-    "kind": "Optimization",
-    "summary": "Kaggle’s Santa 2025 puzzle: pack 1 to 200 Christmas-tree polygons into the smallest possible square. Geometric families, simulated annealing and a GPU optimizer.",
-    "tags": ["Python", "Shapely", "PyTorch"],
-    "access": "private",
-    "year": "2025",
-    "updated": "2025-11-21",
-    "links": [],
-    "body": [
-      "Kaggle’s Santa 2025 challenge: for every <em>n</em> from 1 to 200, pack <em>n</em> identical Christmas-tree-shaped polygons into the smallest square you can, with no overlaps. The score adds up each square’s area divided by <em>n</em>, so every single configuration counts.",
-      "My attempts included hand-designed geometric families (spirals and diagonal chains of interlocking trees), simulated annealing to jiggle positions and rotations into tighter fits, and a GPU optimizer that rasterizes the trees for fast approximate overlap checks. The final geometry runs on 50-digit decimal precision, because the overlap check has to be exact."
-    ],
-    "highlights": [
-      "Shapely with an STRtree spatial index for fast overlap checks",
-      "Parallel search across CPU cores",
-      "PyTorch on CUDA for rasterized overlap checks when a GPU is available"
-    ]
-  },
-  {
     "slug": "sprite-mapper",
     "title": "Sprite-Mapper",
     "kind": "Game dev tool",
     "summary": "Upload a sprite sheet, click a tile, get its coordinates. No more counting rows and columns by hand.",
-    "tags": ["HTML", "JavaScript", "Tailwind CSS"],
+    "tags": [
+      "HTML",
+      "JavaScript",
+      "Tailwind CSS"
+    ],
     "access": "public",
     "year": "2025",
     "updated": "2025-07-01",
-    "links": [{"label": "view source on GitHub", "url": "https://github.com/miles-howell/Sprite-Mapper"}],
+    "links": [
+      {
+        "label": "view source on GitHub",
+        "url": "https://github.com/miles-howell/Sprite-Mapper"
+      }
+    ],
     "body": [
       "A tiny single-page tool for anyone who has squinted at a sprite sheet counting tiles. Upload the sheet, enter the tile size and any margin between tiles, and click: you get the tile’s x and y coordinates instantly, with the selected tile outlined in red.",
       "It’s one HTML file. No install, no build step."
-    ],
-    "highlights": []
-  },
-  {
-    "slug": "dashboard-viewer",
-    "title": "Dashboard Viewer",
-    "kind": "Desktop app",
-    "summary": "A desktop launcher for department dashboards. Pick a department to open its PowerPoint dashboard, or upload a new version from the same screen.",
-    "tags": ["Python", "CustomTkinter", "PyInstaller"],
-    "access": "public",
-    "year": "2026",
-    "updated": "2026-08-18",
-    "links": [{"label": "view source on GitHub", "url": "https://github.com/miles-howell/Dashboard-Viewer"}],
-    "body": [
-      "A small desktop app for offices that share their dashboards as PowerPoint files. Pick a department and its dashboard opens, or upload a new version from the same screen. It greets first-time users with a splash screen, can point at a local folder or a shared network drive, and packages into a single .exe with PyInstaller for easy rollout.",
-      "The public version is a safe demo with generic departments and sample files."
-    ],
-    "highlights": []
-  },
-  {
-    "slug": "convert-image",
-    "title": "Convert-Image",
-    "kind": "Desktop app",
-    "summary": "A drag-and-drop desktop image converter with previews. Drop in almost any image, get an ICO, PNG, JPG, BMP or GIF out.",
-    "tags": ["Python", "CustomTkinter", "Pillow"],
-    "access": "private",
-    "year": "2025",
-    "updated": "2025-06-09",
-    "links": [],
-    "body": [
-      "A simple cross-platform converter built with CustomTkinter and Pillow. Drag an image onto the window (or browse for one), preview it, pick a target format and convert. ICO output bundles multiple icon sizes, which makes it handy for app icons and favicons."
     ],
     "highlights": []
   },
@@ -219,13 +280,22 @@
     "title": "Fruit Classifier",
     "kind": "Where it started",
     "summary": "A single-neuron network in pure NumPy that tells limes from lemons by weight and color. Sigmoid, backprop and gradient descent, all by hand.",
-    "tags": ["Python", "NumPy"],
+    "tags": [
+      "Python",
+      "NumPy"
+    ],
     "access": "public",
     "year": "high school",
     "updated": "2025-05-23",
     "links": [
-      {"label": "view source on GitHub", "url": "https://github.com/miles-howell/fruit_classifier"},
-      {"label": "more old AI projects", "url": "https://github.com/miles-howell/Old-AI-Projects"}
+      {
+        "label": "view source on GitHub",
+        "url": "https://github.com/miles-howell/fruit_classifier"
+      },
+      {
+        "label": "more old AI projects",
+        "url": "https://github.com/miles-howell/Old-AI-Projects"
+      }
     ],
     "body": [
       "Written in high school, back when OpenAI was still focused on Gym, to understand neural networks without anyone else’s library doing the thinking. It’s one neuron with two inputs, a fruit’s weight and its color (0 for green, 1 for yellow), and one output: lime or lemon.",
