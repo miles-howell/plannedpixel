@@ -14,15 +14,15 @@
   src.width = W; src.height = H;
   var sctx = src.getContext('2d', { willReadFrequently: true });
   var ink = getComputedStyle(document.documentElement).getPropertyValue('--ink').trim() || '#0b0d33';
-  var SIZES = [14, 10, 8, 6, 8, 10];
-  var PER_DIGITS = SIZES.length * 2;
+  // One loop is 26 steps x 120ms = 3.12s, the same as the old 12 x 260ms.
+  var STEPS = 26, MAX_BLOCK = 18, MIN_BLOCK = 6, INTERVAL = 120;
 
   function rng(seed) {
     return function () { seed = (seed * 1664525 + 1013904223) >>> 0; return seed / 4294967296; };
   }
 
   function draw(step) {
-    var r = rng(Math.floor(step / PER_DIGITS) * 7919 + 17);
+    var r = rng(Math.floor(step / STEPS) * 7919 + 17);
     var text = '' + (1 + Math.floor(r() * 9)) + Math.floor(r() * 10) + Math.floor(r() * 10);
     sctx.clearRect(0, 0, W, H);
     sctx.fillStyle = '#000';
@@ -30,7 +30,9 @@
     sctx.textAlign = 'center'; sctx.textBaseline = 'middle';
     sctx.fillText(text, W / 2, H / 2 + 1);
     var data = sctx.getImageData(0, 0, W, H).data;
-    var b = SIZES[Math.floor(step / 2) % SIZES.length];
+    // Triangle wave: coarse -> fine -> coarse, one block-size change per step.
+    var tri = 1 - Math.abs(2 * ((step % STEPS) / STEPS) - 1);
+    var b = Math.round(MAX_BLOCK - (MAX_BLOCK - MIN_BLOCK) * tri);
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
     ctx.clearRect(0, 0, W, H);
     ctx.fillStyle = ink;
@@ -52,5 +54,5 @@
   var step = 0;
   draw(step);
   if (window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-  window.PPRedacted.timer = setInterval(function () { draw(++step); }, 260);
+  window.PPRedacted.timer = setInterval(function () { draw(++step); }, INTERVAL);
 })();
