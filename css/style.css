@@ -187,6 +187,15 @@ img { max-width: 100%; }
 .stats dt { color: var(--ink-mute); }
 .stats dd { margin: 2px 0 0; font-size: 18px; font-weight: 600; }
 .stats dd.big { font-size: 28px; font-weight: 700; }
+.redacted {
+  display: inline-block;
+  width: 96px;
+  height: 28px;
+  vertical-align: middle;
+  background: var(--chip);
+  user-select: none;
+}
+.redacted canvas { display: block; image-rendering: pixelated; }
 
 .pixels { display: flex; gap: 4px; }
 .pixels i { display: block; width: 10px; height: 10px; }
