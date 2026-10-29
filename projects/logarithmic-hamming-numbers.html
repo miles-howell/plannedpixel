@@ -13,10 +13,10 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Logarithmic-Hamming-Numbers · Miles Howell · Planned Pixel</title>
-<meta name="description" content="Finds the nth Hamming number, 2ⁱ·3ʲ·5ᵏ, by counting lattice points under a plane in log space, instead of generating every number before it. The billionth, all 844 digits, takes about a second.">
+<meta name="description" content="Finds the nth Hamming number, 2ⁱ·3ʲ·5ᵏ, by counting lattice points under a plane in log space, instead of generating every number before it. The billionth, all 844 digits, takes about five seconds in pure Python.">
 <meta name="theme-color" content="#f6f6fb">
 <meta property="og:title" content="Logarithmic-Hamming-Numbers · Miles Howell · Planned Pixel">
-<meta property="og:description" content="Finds the nth Hamming number, 2ⁱ·3ʲ·5ᵏ, by counting lattice points under a plane in log space, instead of generating every number before it. The billionth, all 844 digits, takes about a second.">
+<meta property="og:description" content="Finds the nth Hamming number, 2ⁱ·3ʲ·5ᵏ, by counting lattice points under a plane in log space, instead of generating every number before it. The billionth, all 844 digits, takes about five seconds in pure Python.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://plannedpixel.com/projects/logarithmic-hamming-numbers.html">
 <link rel="icon" href="../img/favicon.svg" type="image/svg+xml">
@@ -45,7 +45,7 @@
 <div class="project-head">
 <div class="card-head"><p class="project-kind">Algorithms</p><span class="new" hidden>NEW</span></div>
 <h1 class="project-title">Logarithmic-Hamming-Numbers</h1>
-<p class="project-lede">Finds the nth Hamming number, 2ⁱ·3ʲ·5ᵏ, by counting lattice points under a plane in log space, instead of generating every number before it. The billionth, all 844 digits, takes about a second.</p>
+<p class="project-lede">Finds the nth Hamming number, 2ⁱ·3ʲ·5ᵏ, by counting lattice points under a plane in log space, instead of generating every number before it. The billionth, all 844 digits, takes about five seconds in pure Python.</p>
 </div>
 <div class="pixels" aria-hidden="true"><i style="background: #0b0d33"></i><i style="background: #2b2bb0"></i><i style="background: #7d7dff"></i><i style="background: #ff4fc8"></i><i style="background: #ffd400"></i><i style="background: #6fd94a"></i></div>
 <div class="project-layout">
@@ -59,6 +59,22 @@
 <p>This takes a geometric route instead. Taking logs turns the product into a sum, <code>i ln 2 + j ln 3 + k ln 5 ≤ B</code>, so the Hamming numbers up to some bound are exactly the integer points inside a tetrahedron. Finding the <em>n</em>th one means finding the <em>B</em> with exactly <em>n</em> points under it. Counting them loops over <em>j</em> and <em>k</em> and gets the number of valid <em>i</em> with one division, so each count costs O(<em>n</em><sup>2/3</sup>).</p>
 <p>The bound starts from the tetrahedron’s volume, takes one Newton step using the volume’s derivative as the slope, and then switches to the secant method on the real counts. Because the count is a step function, it brackets the answer in a narrow band, lists the few points inside it, sorts them and picks the right one.</p>
 </div>
+<h2 class="h2">Benchmarks</h2>
+<div class="data-table">
+<table>
+<thead><tr><th scope="col"><em>n</em></th><th scope="col">Logarithmic</th><th scope="col">Memory</th><th scope="col">Dijkstra</th><th scope="col">Memory</th></tr></thead>
+<tbody>
+<tr><th scope="row">10<sup>3</sup></th><td>13.5 ms</td><td>288 B</td><td>0.28 ms</td><td>38 KB</td></tr>
+<tr><th scope="row">10<sup>4</sup></th><td>3.7 ms</td><td>304 B</td><td>3.6 ms</td><td>422 KB</td></tr>
+<tr><th scope="row">10<sup>5</sup></th><td>5.6 ms</td><td>352 B</td><td>42.6 ms</td><td>5 MB</td></tr>
+<tr><th scope="row">10<sup>6</sup></th><td>21 ms</td><td>428 B</td><td>606 ms</td><td>63 MB</td></tr>
+<tr><th scope="row">10<sup>7</sup></th><td>142 ms</td><td>596 B</td><td>18.4 s</td><td>934 MB</td></tr>
+<tr><th scope="row">10<sup>8</sup></th><td>645 ms</td><td>1 KB</td><td>—</td><td>—</td></tr>
+<tr><th scope="row">10<sup>9</sup></th><td>5.17 s</td><td>8 KB</td><td>—</td><td>—</td></tr>
+</tbody>
+</table>
+</div>
+<p class="data-note">Median of repeated runs on one thread of a 2.8 GHz Xeon, CPython 3.13, peak memory from tracemalloc. The two methods break even around the ten-thousandth; Dijkstra wasn’t run past ten million, where it already needs almost a gigabyte. Small <em>n</em> is slower than it should be because widening the final bracket takes hundreds of counts when neighbouring Hamming numbers are far apart in log space. Every answer was checked against Dijkstra and the known values for the millionth and billionth.</p>
 <h2 class="h2">Highlights</h2>
 <ul class="highlights">
 <li>A volume estimate, one Newton step and the secant method usually land on the bound in a handful of counts</li>
