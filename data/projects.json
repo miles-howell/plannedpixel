@@ -111,9 +111,22 @@
     "body": [
       "A Hamming number is a positive integer with no prime factors other than 2, 3 and 5: <code>H = 2<sup>i</sup> · 3<sup>j</sup> · 5<sup>k</sup></code>. The classic way to find the <em>n</em>th one is Dijkstra’s three-pointer method, which builds the whole sequence in order. That’s fine for <em>n</em> in the thousands, but it takes O(<em>n</em>) time and memory, so the billionth is out of reach.",
       "This takes a geometric route instead. Taking logs turns the product into a sum, <code>i ln 2 + j ln 3 + k ln 5 ≤ B</code>, so the Hamming numbers up to some bound are exactly the integer points inside a tetrahedron. Finding the <em>n</em>th one means finding the <em>B</em> with exactly <em>n</em> points under it. Counting them loops over <em>j</em> and <em>k</em> and gets the number of valid <em>i</em> with one division, so each count costs O(<em>n</em><sup>2/3</sup>).",
-      "The bound starts from the tetrahedron’s volume, takes one Newton step using the volume’s derivative as the slope, and then switches to the secant method on the real counts. Because the count is a step function, it brackets the answer in a narrow band, lists the few points inside it, sorts them and picks the right one.",
-      "Measured on one thread of a 2.8 GHz Xeon with CPython 3.13, the two methods cost about the same at <em>n</em> = 10,000. By the millionth, this one takes 21 ms against Dijkstra’s 606 ms. By the ten-millionth, it takes 142 ms and under a kilobyte of memory, while Dijkstra takes 18 seconds and 934 MB. The billionth takes 5.2 seconds and 8 KB. The benchmark script and full table are in the repo."
+      "The bound starts from the tetrahedron’s volume, takes one Newton step using the volume’s derivative as the slope, and then switches to the secant method on the real counts. Because the count is a step function, it brackets the answer in a narrow band, lists the few points inside it, sorts them and picks the right one."
     ],
+    "table": {
+      "title": "Benchmarks",
+      "columns": ["<em>n</em>", "Logarithmic", "Memory", "Dijkstra", "Memory"],
+      "rows": [
+        ["10<sup>3</sup>", "13.5 ms", "288 B", "0.28 ms", "38 KB"],
+        ["10<sup>4</sup>", "3.7 ms", "304 B", "3.6 ms", "422 KB"],
+        ["10<sup>5</sup>", "5.6 ms", "352 B", "42.6 ms", "5 MB"],
+        ["10<sup>6</sup>", "21 ms", "428 B", "606 ms", "63 MB"],
+        ["10<sup>7</sup>", "142 ms", "596 B", "18.4 s", "934 MB"],
+        ["10<sup>8</sup>", "645 ms", "1 KB", "—", "—"],
+        ["10<sup>9</sup>", "5.17 s", "8 KB", "—", "—"]
+      ],
+      "note": "Median of repeated runs on one thread of a 2.8 GHz Xeon, CPython 3.13, peak memory from tracemalloc. The two methods break even around the ten-thousandth; Dijkstra wasn’t run past ten million, where it already needs almost a gigabyte. Small <em>n</em> is slower than it should be because widening the final bracket takes hundreds of counts when neighbouring Hamming numbers are far apart in log space. Every answer was checked against Dijkstra and the known values for the millionth and billionth."
+    },
     "highlights": [
       "A volume estimate, one Newton step and the secant method usually land on the bound in a handful of counts",
       "Constant-time counting along each row of the lattice, with a small epsilon guarding against float rounding",

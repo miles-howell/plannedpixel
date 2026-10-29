@@ -20,7 +20,7 @@ The site is plain static HTML, CSS and a little JavaScript. There's no build ste
 
 ## Adding or changing a project
 
-1. Edit `data/projects.json`. Each entry needs `slug`, `title`, `kind`, `summary`, `tags`, `access` (`public`, `private`, `work` or `collab`), `year`, `updated` (YYYY-MM-DD), `links`, `body` (HTML paragraphs), `highlights`, `image` (a path under `img/projects/`) and `image_alt`. `image_caption` is optional. Add `"featured": true` to show a project as a card on the homepage; the rest go in the workshop table.
+1. Edit `data/projects.json`. Each entry needs `slug`, `title`, `kind`, `summary`, `tags`, `access` (`public`, `private`, `work` or `collab`), `year`, `updated` (YYYY-MM-DD), `links`, `body` (HTML paragraphs), `highlights`, `image` (a path under `img/projects/`) and `image_alt`. `image_caption` is optional, and so is `table`, which adds a table below the body: `title`, `columns`, `rows` (lists of cells; the first is the row header), and an optional `note`. Cells, columns and the note may contain HTML. Add `"featured": true` to show a project as a card on the homepage; the rest go in the workshop table.
 2. Run `python3 tools/build.py` (standard library only).
 3. Commit the data change together with the regenerated files.
 

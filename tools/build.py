@@ -131,6 +131,20 @@ def project_page(project):
         items = "\n".join(f"<li>{h}</li>" for h in project["highlights"])
         highlights = f'<h2 class="h2">Highlights</h2>\n<ul class="highlights">\n{items}\n</ul>'
 
+    table = ""
+    if project.get("table"):
+        t = project["table"]
+        header = "".join(f'<th scope="col">{c}</th>' for c in t["columns"])
+        rows = "\n".join(
+            f'<tr><th scope="row">{r[0]}</th>' + "".join(f"<td>{c}</td>" for c in r[1:]) + "</tr>"
+            for r in t["rows"]
+        )
+        note = f'\n<p class="data-note">{t["note"]}</p>' if t.get("note") else ""
+        table = (
+            f'\n<h2 class="h2">{esc(t["title"])}</h2>\n'
+            f'<div class="data-table">\n<table>\n<thead><tr>{header}</tr></thead>\n<tbody>\n{rows}\n</tbody>\n</table>\n</div>{note}'
+        )
+
     caption = ""
     if project.get("image_caption"):
         caption = f'\n<figcaption>{esc(project["image_caption"])}</figcaption>'
@@ -171,7 +185,7 @@ def project_page(project):
 {figure}
 <div class="project-body">
 {body}
-</div>
+</div>{table}
 {highlights}
 {links}
 </div>
