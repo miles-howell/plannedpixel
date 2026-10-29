@@ -84,7 +84,7 @@
     "slug": "logarithmic-hamming-numbers",
     "title": "Logarithmic-Hamming-Numbers",
     "kind": "Algorithms",
-    "summary": "Finds the nth Hamming number, 2ⁱ·3ʲ·5ᵏ, by counting lattice points under a plane in log space, instead of generating every number before it. The billionth, all 844 digits, takes about five seconds in pure Python.",
+    "summary": "Finds the nth Hamming number, 2ⁱ·3ʲ·5ᵏ, by counting lattice points under a plane in log space, instead of generating every number before it. The billionth, all 844 digits, takes about four seconds in pure Python.",
     "tags": [
       "Python",
       "Number theory",
@@ -117,15 +117,15 @@
       "title": "Benchmarks",
       "columns": ["<em>n</em>", "Logarithmic", "Memory", "Dijkstra", "Memory"],
       "rows": [
-        ["10<sup>3</sup>", "13.5 ms", "288 B", "0.28 ms", "38 KB"],
-        ["10<sup>4</sup>", "3.7 ms", "304 B", "3.6 ms", "422 KB"],
-        ["10<sup>5</sup>", "5.6 ms", "352 B", "42.6 ms", "5 MB"],
-        ["10<sup>6</sup>", "21 ms", "428 B", "606 ms", "63 MB"],
-        ["10<sup>7</sup>", "142 ms", "596 B", "18.4 s", "934 MB"],
-        ["10<sup>8</sup>", "645 ms", "1 KB", "—", "—"],
-        ["10<sup>9</sup>", "5.17 s", "8 KB", "—", "—"]
+        ["10<sup>3</sup>", "162 µs", "288 B", "222 µs", "38 KB"],
+        ["10<sup>4</sup>", "658 µs", "304 B", "2.5 ms", "422 KB"],
+        ["10<sup>5</sup>", "2.9 ms", "352 B", "30.9 ms", "5 MB"],
+        ["10<sup>6</sup>", "17.2 ms", "492 B", "510 ms", "63 MB"],
+        ["10<sup>7</sup>", "58.5 ms", "596 B", "7.21 s", "934 MB"],
+        ["10<sup>8</sup>", "458 ms", "1 KB", "—", "—"],
+        ["10<sup>9</sup>", "3.60 s", "8 KB", "—", "—"]
       ],
-      "note": "Median of repeated runs on one thread of a 2.8 GHz Xeon, CPython 3.13, peak memory from tracemalloc. The two methods break even around the ten-thousandth; Dijkstra wasn’t run past ten million, where it already needs almost a gigabyte. Small <em>n</em> is slower than it should be because widening the final bracket takes hundreds of counts when neighbouring Hamming numbers are far apart in log space. Every answer was checked against Dijkstra and the known values for the millionth and billionth."
+      "note": "Median of repeated runs on one thread of a 2.1 GHz Xeon, CPython 3.13, peak memory from tracemalloc. The logarithmic method is ahead at every size, though at a thousand the two are close; Dijkstra wasn’t run past ten million, where it already needs almost a gigabyte. The final bracket widens in doubling steps, so even small <em>n</em>, where neighbouring Hamming numbers are far apart in log space, needs only a dozen or so counts. Every answer was checked against Dijkstra and the known values for the millionth and billionth."
     },
     "highlights": [
       "A volume estimate, one Newton step and the secant method usually land on the bound in a handful of counts",
