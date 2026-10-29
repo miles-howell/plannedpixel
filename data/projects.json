@@ -84,7 +84,7 @@
     "slug": "logarithmic-hamming-numbers",
     "title": "Logarithmic-Hamming-Numbers",
     "kind": "Algorithms",
-    "summary": "Finds the nth Hamming number, 2ⁱ·3ʲ·5ᵏ, by counting lattice points under a plane in log space, instead of generating every number before it. The billionth, all 844 digits, takes about a second.",
+    "summary": "Finds the nth Hamming number, 2ⁱ·3ʲ·5ᵏ, by counting lattice points under a plane in log space, instead of generating every number before it. The billionth, all 844 digits, takes about five seconds in pure Python.",
     "tags": [
       "Python",
       "Number theory",
@@ -111,7 +111,8 @@
     "body": [
       "A Hamming number is a positive integer with no prime factors other than 2, 3 and 5: <code>H = 2<sup>i</sup> · 3<sup>j</sup> · 5<sup>k</sup></code>. The classic way to find the <em>n</em>th one is Dijkstra’s three-pointer method, which builds the whole sequence in order. That’s fine for <em>n</em> in the thousands, but it takes O(<em>n</em>) time and memory, so the billionth is out of reach.",
       "This takes a geometric route instead. Taking logs turns the product into a sum, <code>i ln 2 + j ln 3 + k ln 5 ≤ B</code>, so the Hamming numbers up to some bound are exactly the integer points inside a tetrahedron. Finding the <em>n</em>th one means finding the <em>B</em> with exactly <em>n</em> points under it. Counting them loops over <em>j</em> and <em>k</em> and gets the number of valid <em>i</em> with one division, so each count costs O(<em>n</em><sup>2/3</sup>).",
-      "The bound starts from the tetrahedron’s volume, takes one Newton step using the volume’s derivative as the slope, and then switches to the secant method on the real counts. Because the count is a step function, it brackets the answer in a narrow band, lists the few points inside it, sorts them and picks the right one."
+      "The bound starts from the tetrahedron’s volume, takes one Newton step using the volume’s derivative as the slope, and then switches to the secant method on the real counts. Because the count is a step function, it brackets the answer in a narrow band, lists the few points inside it, sorts them and picks the right one.",
+      "Measured on one thread of a 2.8 GHz Xeon with CPython 3.13, the two methods cost about the same at <em>n</em> = 10,000. By the millionth, this one takes 21 ms against Dijkstra’s 606 ms. By the ten-millionth, it takes 142 ms and under a kilobyte of memory, while Dijkstra takes 18 seconds and 934 MB. The billionth takes 5.2 seconds and 8 KB. The benchmark script and full table are in the repo."
     ],
     "highlights": [
       "A volume estimate, one Newton step and the secant method usually land on the bound in a handful of counts",
