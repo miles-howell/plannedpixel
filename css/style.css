@@ -473,3 +473,17 @@ img { max-width: 100%; }
   .cta { padding: 28px 24px; }
   .section-title { font-size: 28px; }
 }
+
+/* ---------- social icons ---------- */
+
+.brand-group { display: flex; align-items: center; gap: 10px 18px; }
+.social { display: flex; align-items: center; gap: 6px; }
+.social a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  color: var(--ink);
+}
+.social a:hover { color: var(--link); }
