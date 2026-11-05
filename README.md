@@ -17,6 +17,7 @@ The site is plain static HTML, CSS and a little JavaScript. There's no build ste
 | `img/projects/` | One 16:10 image per project (1600×1000 WebP, or SVG) |
 | `img/button-88x31.png` | The 88×31 link-back button |
 | `404.html` | "Lost in space" page |
+| `privacy.html`, `terms.html` | Privacy Policy and Terms of Use, written by hand. Update them (and their "Last updated" dates) if the site starts collecting anything new, e.g. new analytics, embeds or forms |
 
 ## Adding or changing a project
 

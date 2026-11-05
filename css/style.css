@@ -439,6 +439,17 @@ img { max-width: 100%; }
 
 .private-note { margin: 32px 0 0; padding: 16px 20px; background: var(--chip); }
 
+/* ---------- privacy and terms ---------- */
+
+.legal { max-width: 720px; padding-top: 32px; }
+.legal p { margin: 0 0 16px; font-size: 17px; line-height: 1.7; }
+.legal code { padding: 1px 5px; background: var(--chip); font-size: 0.92em; overflow-wrap: anywhere; }
+.legal .highlights { margin-bottom: 8px; }
+.legal-date { font-family: var(--pixel); font-size: 12px !important; letter-spacing: 0.08em; color: var(--ink-mute); }
+.legal-also { margin-top: 36px !important; padding-top: 20px; border-top: 1px solid var(--rule); }
+
+.foot-links { display: flex; gap: 16px; }
+
 /* ---------- 404 ---------- */
 
 .lost { padding-top: 96px; padding-bottom: 96px; display: flex; flex-direction: column; gap: 20px; }
