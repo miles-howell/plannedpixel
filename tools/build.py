@@ -202,6 +202,7 @@ def project_page(project):
 <div class="foot-line">
 <span>© 2026 Miles Howell · best viewed in any browser</span>
 <a href="mailto:{EMAIL}">{EMAIL}</a>
+<span class="foot-links"><a href="{root}privacy.html">Privacy</a> <a href="{root}terms.html">Terms</a></span>
 <a target="_blank" rel="noopener noreferrer" href="https://github.com/sponsors/miles-howell">♥ Sponsor</a>
 </div>
 </footer>
