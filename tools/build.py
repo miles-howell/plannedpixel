@@ -87,8 +87,8 @@ def preview(project):
 
 def card(project):
     """A featured project on the homepage."""
-    return f"""<article class="card" data-updated="{esc(project['updated'])}">
-<div class="card-head"><p class="card-kind">{esc(project['kind'])}</p><span class="new" hidden>NEW</span></div>
+    return f"""<article class="card">
+<div class="card-head"><p class="card-kind">{esc(project['kind'])}</p></div>
 <h3 class="card-title"><a href="projects/{project['slug']}.html"{preview(project)}>{esc(project['title'])}</a></h3>
 <p class="summary">{esc(project['summary'])}</p>
 {tags(project)}
@@ -98,8 +98,8 @@ def card(project):
 def row(project):
     """Every other project, as a row in the homepage's workshop table."""
     return (
-        f'<tr data-updated="{esc(project["updated"])}">'
-        f'<th scope="row"><a href="projects/{project["slug"]}.html"{preview(project)}>{esc(project["title"])}</a><span class="new" hidden>NEW</span></th>'
+        f'<tr>'
+        f'<th scope="row"><a href="projects/{project["slug"]}.html"{preview(project)}>{esc(project["title"])}</a></th>'
         f'<td>{esc(project["summary"])}</td>'
         f'<td class="year">{esc(project["year"])}</td></tr>'
     )
@@ -172,10 +172,10 @@ def project_page(project):
 <a class="skip" href="#main">Skip to content</a>
 {topbar(root)}
 
-<main id="main" class="container" data-updated="{esc(project['updated'])}">
+<main id="main" class="container">
 <p class="crumbs"><a href="{root}index.html">Home</a> / <a href="{root}index.html#workshop">Workshop</a> / {esc(title)}</p>
 <div class="project-head">
-<div class="card-head"><p class="project-kind">{esc(project['kind'])}</p><span class="new" hidden>NEW</span></div>
+<div class="card-head"><p class="project-kind">{esc(project['kind'])}</p></div>
 <h1 class="project-title">{esc(title)}</h1>
 <p class="project-lede">{esc(project['summary'])}</p>
 </div>
