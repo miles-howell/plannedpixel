@@ -361,7 +361,8 @@ img { max-width: 100%; }
   cursor: pointer;
 }
 .modal-close:hover { background: var(--ink); color: #fff; }
-html:has(.contact-modal[open]) { overflow: hidden; }
+/* Keep the scrollbar's space while scrolling is locked so the page doesn't shift. */
+html:has(.contact-modal[open]) { overflow: hidden; scrollbar-gutter: stable; }
 
 @keyframes veil-in  { from { opacity: 0; } to { opacity: 1; } }
 @keyframes veil-out { from { opacity: 1; } to { opacity: 0; } }
