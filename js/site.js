@@ -12,6 +12,8 @@
 
   var reduce = window.matchMedia('(prefers-reduced-motion: reduce)');
   var raf = null;
+  var lead = null;                    // pending start of the scroll (see LEAD)
+  var LEAD = 180;                     // ms the dim gets before the scroll begins
 
   function ease(t) { return t < 0.5 ? 2 * t * t : 1 - 2 * (1 - t) * (1 - t); }
 
@@ -37,6 +39,7 @@
   card.addEventListener('animationend', function () { card.classList.remove('pulse'); });
 
   function stop() {
+    if (lead) { clearTimeout(lead); lead = null; dim(false); }
     if (raf) { cancelAnimationFrame(raf); raf = null; dim(false); }
   }
   ['wheel', 'touchstart', 'keydown'].forEach(function (ev) {
@@ -77,7 +80,11 @@
         setTimeout(function () { if (!raf) dim(false); }, 1100);
       }
     }
-    raf = requestAnimationFrame(frame);
+    // Let the dim start first; the scroll's own ease-in keeps the handoff smooth.
+    lead = setTimeout(function () {
+      lead = null;
+      raf = requestAnimationFrame(frame);
+    }, LEAD);
   }
   links.forEach(function (a) { a.addEventListener('click', go); });
 })();
