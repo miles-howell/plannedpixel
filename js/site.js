@@ -12,23 +12,32 @@
 
   var reduce = window.matchMedia('(prefers-reduced-motion: reduce)');
   var raf = null;
-  var lead = null;                    // pending start of the scroll (see LEAD)
-  var LEAD = 180;                     // ms the dim gets before the scroll begins
+  // The dim and the scroll share one clock so they read as a single motion:
+  // the dim eases in over DIM ms, and the scroll starts LEAD ms in, while the
+  // dim is still gathering pace, so both accelerate together.
+  var DIM = 650;
+  var LEAD = 220;
 
   function ease(t) { return t < 0.5 ? 2 * t * t : 1 - 2 * (1 - t) * (1 - t); }
+  function sine(t) { return (1 - Math.cos(Math.PI * t)) / 2; }
 
   // Dim overlay behind the card while the scroll runs; the card sits above it.
+  // Its fade-in is set frame by frame below; the fade-out is a CSS transition.
   var veil = document.createElement('div');
   veil.className = 'veil';
   veil.setAttribute('aria-hidden', 'true');
   document.body.appendChild(veil);
   var veilTimer = null;
-  function dim(on) {
+  function veilAt(o) {
+    veil.style.transition = 'none';
+    veil.style.opacity = o;
+  }
+  function undim() {
     clearTimeout(veilTimer);
-    veil.classList.toggle('on', on);
-    if (on) card.classList.add('lift');
+    veil.style.transition = '';
+    veil.style.opacity = '';          // fades from wherever it is back to 0
     // Keep the card above the veil until the fade-out has finished.
-    else veilTimer = setTimeout(function () { card.classList.remove('lift'); }, 500);
+    veilTimer = setTimeout(function () { card.classList.remove('lift'); }, 700);
   }
 
   function pulse() {
@@ -39,8 +48,7 @@
   card.addEventListener('animationend', function () { card.classList.remove('pulse'); });
 
   function stop() {
-    if (lead) { clearTimeout(lead); lead = null; dim(false); }
-    if (raf) { cancelAnimationFrame(raf); raf = null; dim(false); }
+    if (raf) { cancelAnimationFrame(raf); raf = null; undim(); }
   }
   ['wheel', 'touchstart', 'keydown'].forEach(function (ev) {
     window.addEventListener(ev, stop, { passive: true });
@@ -67,24 +75,25 @@
     // ~1.4x the feel of native smooth scroll: 700ms base + distance, capped.
     var dur = Math.min(2200, 700 + Math.abs(to - from) * 0.45);
     var start = null;
-    dim(true);
+    var base = parseFloat(getComputedStyle(veil).opacity) || 0; // if re-clicked mid-fade
+    clearTimeout(veilTimer);
+    card.classList.add('lift');
     function frame(now) {
       if (start === null) start = now;
-      var t = Math.min(1, (now - start) / dur);
+      var el = now - start;
+      veilAt(base + (1 - base) * sine(Math.min(1, el / DIM)));
+      var t = Math.max(0, Math.min(1, (el - LEAD) / dur));
       window.scrollTo({ top: from + (to - from) * ease(t), behavior: 'instant' });
       if (t < 1) raf = requestAnimationFrame(frame);
       else {
         raf = null;
+        veilAt(1);
         pulse();
         // Lift the veil as the glow finishes.
-        setTimeout(function () { if (!raf) dim(false); }, 1100);
+        veilTimer = setTimeout(function () { if (!raf) undim(); }, 1100);
       }
     }
-    // Let the dim start first; the scroll's own ease-in keeps the handoff smooth.
-    lead = setTimeout(function () {
-      lead = null;
-      raf = requestAnimationFrame(frame);
-    }, LEAD);
+    raf = requestAnimationFrame(frame);
   }
   links.forEach(function (a) { a.addEventListener('click', go); });
 })();

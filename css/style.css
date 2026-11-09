@@ -326,9 +326,8 @@ img { max-width: 100%; }
   background: rgba(11, 13, 51, 0.55);
   opacity: 0;
   pointer-events: none;
-  transition: opacity 0.45s ease;
+  transition: opacity 0.6s cubic-bezier(0.45, 0, 0.55, 1);
 }
-.veil.on { opacity: 1; }
 .cta.lift { position: relative; z-index: 41; }
 
 /* One glow pulse when the contact link lands here (class added by js/site.js). */
