@@ -318,6 +318,16 @@ img { max-width: 100%; }
   border: 2px solid var(--ink);
   box-shadow: var(--shadow);
 }
+/* One glow pulse when the contact link lands here (class added by js/site.js). */
+.cta.pulse { animation: cta-pulse 1.3s ease-out 1; }
+@keyframes cta-pulse {
+  0%   { box-shadow: var(--shadow), 0 0 0 0 rgba(255, 212, 0, 0.9), 0 0 0 0 rgba(255, 239, 58, 0.6); }
+  60%  { box-shadow: var(--shadow), 0 0 0 18px rgba(255, 212, 0, 0), 0 0 36px 14px rgba(255, 239, 58, 0.55); }
+  100% { box-shadow: var(--shadow), 0 0 0 28px rgba(255, 212, 0, 0), 0 0 0 0 rgba(255, 239, 58, 0); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .cta.pulse { animation-duration: 0.01ms; }
+}
 .cta h2 { margin: 0 0 6px; font-size: 26px; line-height: 1.25; font-weight: 700; }
 .cta p { margin: 0; }
 .cta a:not(.btn) { color: var(--ink); font-weight: 600; }

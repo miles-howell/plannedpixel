@@ -1,5 +1,66 @@
 // Planned Pixel extras. The site works without JavaScript; this only adds
-// project image previews.
+// a custom scroll to the contact card and project image previews.
+(function () {
+  // "Start a project" glides to the contact card on a parabolic ease (two
+  // quadratic halves: accelerate, then decelerate), slower than the browser's
+  // default smooth scroll, then pulses the card once. Without JS the plain
+  // #contact-title anchor still works.
+  var title = document.getElementById('contact-title');
+  var card = title && title.closest('.cta');
+  var links = document.querySelectorAll('a[href="#contact-title"]');
+  if (!card || !links.length) return;
+
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)');
+  var raf = null;
+
+  function ease(t) { return t < 0.5 ? 2 * t * t : 1 - 2 * (1 - t) * (1 - t); }
+
+  function pulse() {
+    card.classList.remove('pulse');
+    void card.offsetWidth;            // restart the animation if it is replayed
+    card.classList.add('pulse');
+  }
+  card.addEventListener('animationend', function () { card.classList.remove('pulse'); });
+
+  function stop() { if (raf) { cancelAnimationFrame(raf); raf = null; } }
+  ['wheel', 'touchstart', 'keydown'].forEach(function (ev) {
+    window.addEventListener(ev, stop, { passive: true });
+  });
+
+  function go(e) {
+    if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || e.button) return;
+    e.preventDefault();
+    stop();
+    // Land with the card's bottom edge in view when it fits, else its top.
+    var rect = card.getBoundingClientRect();
+    var maxY = document.documentElement.scrollHeight - window.innerHeight;
+    var to = Math.max(0, Math.min(maxY, rect.top + window.pageYOffset -
+      Math.max(16, (window.innerHeight - rect.height) / 2)));
+    var from = window.pageYOffset;
+    history.pushState(null, '', '#contact-title');
+    title.setAttribute('tabindex', '-1');
+    title.focus({ preventScroll: true });
+    if (reduce.matches || Math.abs(to - from) < 2) {
+      window.scrollTo({ top: to, behavior: 'instant' });
+      pulse();
+      return;
+    }
+    // ~1.4x the feel of native smooth scroll: 700ms base + distance, capped.
+    var dur = Math.min(2200, 700 + Math.abs(to - from) * 0.45);
+    var start = null;
+    function frame(now) {
+      if (start === null) start = now;
+      var t = Math.min(1, (now - start) / dur);
+      window.scrollTo({ top: from + (to - from) * ease(t), behavior: 'instant' });
+      if (t < 1) raf = requestAnimationFrame(frame);
+      else { raf = null; pulse(); }
+    }
+    raf = requestAnimationFrame(frame);
+  }
+  links.forEach(function (a) { a.addEventListener('click', go); });
+})();
+
+// Project image previews.
 (function () {
   // Hovering or focusing a project link shows that project's image beside it.
   // Only on devices that can hover; a tap goes straight to the project page.
