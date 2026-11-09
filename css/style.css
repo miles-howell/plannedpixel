@@ -42,6 +42,8 @@ a { color: var(--link); text-underline-offset: 3px; }
 a:hover { color: var(--ink); }
 
 :focus-visible { outline: 3px solid var(--link); outline-offset: 2px; }
+/* Sections focused by the in-page scroll (js/site.js) don't need a ring. */
+[tabindex="-1"]:focus { outline: none; }
 
 img { max-width: 100%; }
 

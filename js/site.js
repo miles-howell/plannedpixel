@@ -1,5 +1,60 @@
 // Planned Pixel extras. The site works without JavaScript; this only adds
-// a contact modal and project image previews.
+// a custom in-page scroll, a contact modal and project image previews.
+(function () {
+  // In-page links glide to their target on a parabolic ease (two quadratic
+  // halves: accelerate, then decelerate), slower than the browser's default
+  // smooth scroll. The skip link (#main) keeps its instant jump. Links whose
+  // click is already handled (the contact modal) are left alone.
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)');
+  var raf = null;
+
+  function ease(t) { return t < 0.5 ? 2 * t * t : 1 - 2 * (1 - t) * (1 - t); }
+
+  function stop() { if (raf) { cancelAnimationFrame(raf); raf = null; } }
+  ['wheel', 'touchstart', 'keydown'].forEach(function (ev) {
+    window.addEventListener(ev, stop, { passive: true });
+  });
+
+  function scrollTo(y) { window.scrollTo({ top: y, behavior: 'instant' }); }
+
+  document.addEventListener('click', function (e) {
+    if (e.defaultPrevented || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || e.button) return;
+    var a = e.target.closest && e.target.closest('a[href^="#"]');
+    if (!a) return;
+    var hash = a.getAttribute('href');
+    if (hash.length < 2 || hash === '#main') return;
+    var target = document.getElementById(decodeURIComponent(hash.slice(1)));
+    if (!target) return;
+    e.preventDefault();
+    stop();
+
+    // Respect the target's scroll-margin-top, as the native jump does.
+    var margin = parseFloat(getComputedStyle(target).scrollMarginTop) || 0;
+    var maxY = document.documentElement.scrollHeight - window.innerHeight;
+    var to = Math.max(0, Math.min(maxY, target.getBoundingClientRect().top + window.pageYOffset - margin));
+    var from = window.pageYOffset;
+
+    if (location.hash !== hash) history.pushState(null, '', hash);
+    // Move focus like native anchor navigation, without the browser's own scroll.
+    if (!target.hasAttribute('tabindex') && !/^(A|BUTTON|INPUT|SELECT|TEXTAREA)$/.test(target.tagName)) {
+      target.setAttribute('tabindex', '-1');
+    }
+    target.focus({ preventScroll: true });
+
+    if (reduce.matches || Math.abs(to - from) < 2) { scrollTo(to); return; }
+    // ~1.4x the feel of native smooth scroll: 700ms base + distance, capped.
+    var dur = Math.min(2200, 700 + Math.abs(to - from) * 0.45);
+    var start = null;
+    function frame(now) {
+      if (start === null) start = now;
+      var t = Math.min(1, (now - start) / dur);
+      scrollTo(from + (to - from) * ease(t));
+      raf = t < 1 ? requestAnimationFrame(frame) : null;
+    }
+    raf = requestAnimationFrame(frame);
+  });
+})();
+
 (function () {
   // "Start a project" opens the contact card as a modal instead of jumping
   // down the page. The card itself stays in place at the bottom; the modal
