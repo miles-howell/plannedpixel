@@ -15,6 +15,20 @@
 
   function ease(t) { return t < 0.5 ? 2 * t * t : 1 - 2 * (1 - t) * (1 - t); }
 
+  // Dim overlay behind the card while the scroll runs; the card sits above it.
+  var veil = document.createElement('div');
+  veil.className = 'veil';
+  veil.setAttribute('aria-hidden', 'true');
+  document.body.appendChild(veil);
+  var veilTimer = null;
+  function dim(on) {
+    clearTimeout(veilTimer);
+    veil.classList.toggle('on', on);
+    if (on) card.classList.add('lift');
+    // Keep the card above the veil until the fade-out has finished.
+    else veilTimer = setTimeout(function () { card.classList.remove('lift'); }, 500);
+  }
+
   function pulse() {
     card.classList.remove('pulse');
     void card.offsetWidth;            // restart the animation if it is replayed
@@ -22,7 +36,9 @@
   }
   card.addEventListener('animationend', function () { card.classList.remove('pulse'); });
 
-  function stop() { if (raf) { cancelAnimationFrame(raf); raf = null; } }
+  function stop() {
+    if (raf) { cancelAnimationFrame(raf); raf = null; dim(false); }
+  }
   ['wheel', 'touchstart', 'keydown'].forEach(function (ev) {
     window.addEventListener(ev, stop, { passive: true });
   });
@@ -48,12 +64,18 @@
     // ~1.4x the feel of native smooth scroll: 700ms base + distance, capped.
     var dur = Math.min(2200, 700 + Math.abs(to - from) * 0.45);
     var start = null;
+    dim(true);
     function frame(now) {
       if (start === null) start = now;
       var t = Math.min(1, (now - start) / dur);
       window.scrollTo({ top: from + (to - from) * ease(t), behavior: 'instant' });
       if (t < 1) raf = requestAnimationFrame(frame);
-      else { raf = null; pulse(); }
+      else {
+        raf = null;
+        pulse();
+        // Lift the veil as the glow finishes.
+        setTimeout(function () { if (!raf) dim(false); }, 1100);
+      }
     }
     raf = requestAnimationFrame(frame);
   }

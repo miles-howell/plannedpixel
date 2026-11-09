@@ -318,6 +318,19 @@ img { max-width: 100%; }
   border: 2px solid var(--ink);
   box-shadow: var(--shadow);
 }
+/* Dim layer shown while the contact link scrolls; the card is lifted above it. */
+.veil {
+  position: fixed;
+  inset: 0;
+  z-index: 40;
+  background: rgba(11, 13, 51, 0.55);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.45s ease;
+}
+.veil.on { opacity: 1; }
+.cta.lift { position: relative; z-index: 41; }
+
 /* One glow pulse when the contact link lands here (class added by js/site.js). */
 .cta.pulse { animation: cta-pulse 1.3s ease-out 1; }
 @keyframes cta-pulse {
