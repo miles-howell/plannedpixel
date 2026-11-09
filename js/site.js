@@ -1,92 +1,65 @@
 // Planned Pixel extras. The site works without JavaScript; this only adds
-// a custom scroll to the contact card and project image previews.
+// a contact modal and project image previews.
 (function () {
-  // "Start a project" glides to the contact card on a parabolic ease (two
-  // quadratic halves: accelerate, then decelerate), slower than the browser's
-  // default smooth scroll, then pulses the card once. Without JS the plain
-  // #contact-title anchor still works.
-  var title = document.getElementById('contact-title');
-  var card = title && title.closest('.cta');
+  // "Start a project" opens the contact card as a modal instead of jumping
+  // down the page. The card itself stays in place at the bottom; the modal
+  // holds a copy. Without JS (or without <dialog>) the plain #contact-title
+  // anchor still scrolls there.
+  var card = document.querySelector('.cta');
   var links = document.querySelectorAll('a[href="#contact-title"]');
-  if (!card || !links.length) return;
+  if (!card || !links.length || typeof HTMLDialogElement !== 'function') return;
+
+  var dialog = document.createElement('dialog');
+  dialog.className = 'contact-modal';
+  dialog.setAttribute('aria-labelledby', 'contact-modal-title');
+
+  var copy = card.cloneNode(true);
+  copy.removeAttribute('aria-labelledby');
+  var heading = copy.querySelector('#contact-title');
+  if (heading) heading.id = 'contact-modal-title';
+
+  var close = document.createElement('button');
+  close.type = 'button';
+  close.className = 'modal-close';
+  close.setAttribute('aria-label', 'Close');
+  close.textContent = '\u00d7';
+  copy.insertBefore(close, copy.firstChild);
+
+  dialog.appendChild(copy);
+  document.body.appendChild(dialog);
 
   var reduce = window.matchMedia('(prefers-reduced-motion: reduce)');
-  var raf = null;
-  var lead = null;                    // pending start of the scroll (see LEAD)
-  var LEAD = 180;                     // ms the dim gets before the scroll begins
+  var closing = null;
 
-  function ease(t) { return t < 0.5 ? 2 * t * t : 1 - 2 * (1 - t) * (1 - t); }
-
-  // Dim overlay behind the card while the scroll runs; the card sits above it.
-  var veil = document.createElement('div');
-  veil.className = 'veil';
-  veil.setAttribute('aria-hidden', 'true');
-  document.body.appendChild(veil);
-  var veilTimer = null;
-  function dim(on) {
-    clearTimeout(veilTimer);
-    veil.classList.toggle('on', on);
-    if (on) card.classList.add('lift');
-    // Keep the card above the veil until the fade-out has finished.
-    else veilTimer = setTimeout(function () { card.classList.remove('lift'); }, 500);
-  }
-
-  function pulse() {
-    card.classList.remove('pulse');
-    void card.offsetWidth;            // restart the animation if it is replayed
-    card.classList.add('pulse');
-  }
-  card.addEventListener('animationend', function () { card.classList.remove('pulse'); });
-
-  function stop() {
-    if (lead) { clearTimeout(lead); lead = null; dim(false); }
-    if (raf) { cancelAnimationFrame(raf); raf = null; dim(false); }
-  }
-  ['wheel', 'touchstart', 'keydown'].forEach(function (ev) {
-    window.addEventListener(ev, stop, { passive: true });
-  });
-
-  function go(e) {
+  function open(e) {
     if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || e.button) return;
     e.preventDefault();
-    stop();
-    // Land with the card's bottom edge in view when it fits, else its top.
-    var rect = card.getBoundingClientRect();
-    var maxY = document.documentElement.scrollHeight - window.innerHeight;
-    var to = Math.max(0, Math.min(maxY, rect.top + window.pageYOffset -
-      Math.max(16, (window.innerHeight - rect.height) / 2)));
-    var from = window.pageYOffset;
-    history.pushState(null, '', '#contact-title');
-    title.setAttribute('tabindex', '-1');
-    title.focus({ preventScroll: true });
-    if (reduce.matches || Math.abs(to - from) < 2) {
-      window.scrollTo({ top: to, behavior: 'instant' });
-      pulse();
-      return;
-    }
-    // ~1.4x the feel of native smooth scroll: 700ms base + distance, capped.
-    var dur = Math.min(2200, 700 + Math.abs(to - from) * 0.45);
-    var start = null;
-    dim(true);
-    function frame(now) {
-      if (start === null) start = now;
-      var t = Math.min(1, (now - start) / dur);
-      window.scrollTo({ top: from + (to - from) * ease(t), behavior: 'instant' });
-      if (t < 1) raf = requestAnimationFrame(frame);
-      else {
-        raf = null;
-        pulse();
-        // Lift the veil as the glow finishes.
-        setTimeout(function () { if (!raf) dim(false); }, 1100);
-      }
-    }
-    // Let the dim start first; the scroll's own ease-in keeps the handoff smooth.
-    lead = setTimeout(function () {
-      lead = null;
-      raf = requestAnimationFrame(frame);
-    }, LEAD);
+    if (closing) { clearTimeout(closing); closing = null; dialog.classList.remove('closing'); }
+    if (dialog.open) return;
+    dialog.showModal();
+    // Put focus on the main action rather than the close button.
+    var action = copy.querySelector('.btn-primary');
+    if (action) action.focus({ preventScroll: true });
   }
-  links.forEach(function (a) { a.addEventListener('click', go); });
+
+  function dismiss() {
+    if (!dialog.open || closing) return;
+    if (reduce.matches) { dialog.close(); return; }
+    dialog.classList.add('closing');
+    closing = setTimeout(function () {
+      closing = null;
+      dialog.classList.remove('closing');
+      dialog.close();
+    }, 550);                          // backdrop fade (0.1s delay + 0.45s)
+  }
+
+  // Esc: animate out instead of the instant native close.
+  dialog.addEventListener('cancel', function (e) { e.preventDefault(); dismiss(); });
+  close.addEventListener('click', dismiss);
+  // A click on the dim backdrop lands on the <dialog> itself, not the card.
+  dialog.addEventListener('click', function (e) { if (e.target === dialog) dismiss(); });
+
+  links.forEach(function (a) { a.addEventListener('click', open); });
 })();
 
 // Project image previews.

@@ -318,28 +318,72 @@ img { max-width: 100%; }
   border: 2px solid var(--ink);
   box-shadow: var(--shadow);
 }
-/* Dim layer shown while the contact link scrolls; the card is lifted above it. */
-.veil {
-  position: fixed;
-  inset: 0;
-  z-index: 40;
-  background: rgba(11, 13, 51, 0.55);
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.45s ease;
+/* "Start a project" opens a copy of the contact card in a modal (js/site.js).
+   Same parabolic timing as before: the page dims first, then the card rises in
+   on a quadratic ease-in-out and pulses once when it lands. */
+.contact-modal {
+  width: min(720px, calc(100% - 32px));
+  max-width: none;
+  max-height: calc(100% - 32px);
+  margin: auto;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  overflow: visible;
+  color: var(--ink);
 }
-.veil.on { opacity: 1; }
-.cta.lift { position: relative; z-index: 41; }
+.contact-modal .cta {
+  position: relative;
+  margin: 0;
+  padding: 48px 40px 40px;
+  animation: modal-in 0.6s cubic-bezier(0.455, 0.03, 0.515, 0.955) 0.18s both,
+             cta-pulse 1.3s ease-out 0.78s 1;
+}
+.contact-modal::backdrop {
+  background: rgba(11, 13, 51, 0.55);
+  animation: veil-in 0.45s ease both;
+}
+.contact-modal.closing .cta { animation: modal-out 0.35s cubic-bezier(0.455, 0.03, 0.515, 0.955) both; }
+.contact-modal.closing::backdrop { animation: veil-out 0.45s ease 0.1s both; }
+.modal-close {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  width: 36px;
+  height: 36px;
+  display: grid;
+  place-items: center;
+  padding: 0;
+  border: 2px solid var(--ink);
+  background: var(--card);
+  color: var(--ink);
+  font: 700 20px/1 var(--body);
+  cursor: pointer;
+}
+.modal-close:hover { background: var(--ink); color: #fff; }
+html:has(.contact-modal[open]) { overflow: hidden; }
 
-/* One glow pulse when the contact link lands here (class added by js/site.js). */
-.cta.pulse { animation: cta-pulse 1.3s ease-out 1; }
+@keyframes veil-in  { from { opacity: 0; } to { opacity: 1; } }
+@keyframes veil-out { from { opacity: 1; } to { opacity: 0; } }
+@keyframes modal-in {
+  from { opacity: 0; transform: translateY(48px) scale(0.96); }
+  to   { opacity: 1; transform: none; }
+}
+@keyframes modal-out {
+  from { opacity: 1; transform: none; }
+  to   { opacity: 0; transform: translateY(24px) scale(0.98); }
+}
 @keyframes cta-pulse {
   0%   { box-shadow: var(--shadow), 0 0 0 0 rgba(255, 212, 0, 0.9), 0 0 0 0 rgba(255, 239, 58, 0.6); }
   60%  { box-shadow: var(--shadow), 0 0 0 18px rgba(255, 212, 0, 0), 0 0 36px 14px rgba(255, 239, 58, 0.55); }
   100% { box-shadow: var(--shadow), 0 0 0 28px rgba(255, 212, 0, 0), 0 0 0 0 rgba(255, 239, 58, 0); }
 }
 @media (prefers-reduced-motion: reduce) {
-  .cta.pulse { animation-duration: 0.01ms; }
+  .contact-modal .cta, .contact-modal::backdrop,
+  .contact-modal.closing .cta, .contact-modal.closing::backdrop { animation-duration: 0.01ms; animation-delay: 0s; }
+}
+@media (max-width: 600px) {
+  .contact-modal .cta { padding: 52px 20px 24px; }
 }
 .cta h2 { margin: 0 0 6px; font-size: 26px; line-height: 1.25; font-weight: 700; }
 .cta p { margin: 0; }
