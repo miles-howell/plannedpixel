@@ -296,15 +296,16 @@ img { max-width: 100%; }
 .about-copy .section-title { margin-bottom: 14px; }
 .about-copy p { margin: 0 0 14px; max-width: 64ch; color: var(--ink-soft); }
 
-.quote {
+.avatar {
   flex: 1 1 280px;
   align-self: flex-start;
-  margin: 0;
-  padding: 28px;
-  background: var(--ink);
+  width: 100%;
+  max-width: 360px;
+  height: auto;
+  aspect-ratio: 1;
+  object-fit: cover;
   box-shadow: 5px 5px 0 var(--gold);
 }
-.quote p { margin: 0; font-family: var(--pixel); font-size: 19px; line-height: 1.45; color: var(--highlight); }
 
 /* ---------- contact ---------- */
 
