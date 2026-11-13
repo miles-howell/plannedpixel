@@ -1,0 +1,30 @@
+# Planned Pixel
+
+> Miles Howell's portfolio site for Planned Pixel Studio: legacy system rebuilds, security testing and low-level AI research built from first principles.
+
+Planned Pixel Studio is run by Miles Howell. The site is a static showcase of projects; each project page has a summary, highlights and links to its website or source code. Some projects are private (marked on each page), so their code isn't public.
+
+## Pages
+
+- [Home](https://plannedpixel.com/): what Miles does, featured work, the full project list and contact details
+- [Privacy Policy](https://plannedpixel.com/privacy.html): what the site collects and who else sees it
+- [Terms of Use](https://plannedpixel.com/terms.html): the terms for using the site
+
+## Projects
+
+- [Squared-Squares](https://plannedpixel.com/projects/squared-squares.html): Kaggle’s Squares in Squares competition: for every n from 1 to 1000, fit n unit squares into the smallest possible square. Scoring tools, a certified per-n merge pipeline and my own packing searches.
+- [Shrimple](https://plannedpixel.com/projects/shrimple.html): A tiny pixel-art shrimp that lives in your Windows system tray and reminds you to sit up straight. No sounds, no pop-ups, just a shrimp.
+- [Logarithmic-Hamming-Numbers](https://plannedpixel.com/projects/logarithmic-hamming-numbers.html): Finds the nth Hamming number, 2ⁱ·3ʲ·5ᵏ, by counting lattice points under a plane in log space, instead of generating every number before it. The billionth, all 844 digits, takes about 11 ms with its C extension, and the 10¹⁶th takes under two minutes.
+- [Bridge-Crossing RL Sim](https://plannedpixel.com/projects/bridge-crossing-rl-sim.html): Hierarchical reinforcement learning in a grid world. A manager agent picks sub-goals, a worker agent walks there, and together they learn to fetch a log, build a bridge and get home. A “profit-sharing” reward keeps their goals aligned.
+- [Vixxing](https://plannedpixel.com/projects/vixxing.html): Caller verification for IT help desks. Before anyone resets a password or MFA, the caller reads a live 6-digit TOTP code off their phone. Facts leak. Possession doesn’t.
+- [ClaimTracker](https://plannedpixel.com/projects/claimtracker.html): A Django rebuild of a legacy healthcare claims viewer. Reads EDI 837 claims and renders print-accurate UB-04 and CMS-1500 forms, with PDF, Word and CSV export.
+- [Window-Works](https://plannedpixel.com/projects/window-works.html): An interactive office floor plan. Look up your seat, reserve a free desk, and let admins repaint the layout without touching the database.
+- [Employee Directory](https://plannedpixel.com/projects/employee-directory.html): A company directory built over a legacy Microsoft Access database, sorted by department and hierarchy, with birthdays and work anniversaries on the front page.
+- [Normalization Sim](https://plannedpixel.com/projects/normalization-sim.html): An agent-based toy model of what happens when AI pulls everyone’s opinions toward the mean. Tracks stability, Gini inequality, opinion diversity and trust over time.
+- [Sprite-Mapper](https://plannedpixel.com/projects/sprite-mapper.html): Upload a sprite sheet, click a tile, get its coordinates. No more counting rows and columns by hand.
+- [Fruit Classifier](https://plannedpixel.com/projects/fruit-classifier.html): A single-neuron network in pure NumPy that tells limes from lemons by weight and color. Sigmoid, backprop and gradient descent, all by hand.
+
+## Elsewhere
+
+- [GitHub](https://github.com/miles-howell)
+- [LinkedIn](https://www.linkedin.com/in/miles-howell-pxl)
