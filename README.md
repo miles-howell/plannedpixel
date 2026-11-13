@@ -11,6 +11,9 @@ The site is plain static HTML, CSS and a little JavaScript. There's no build ste
 | `index.html` | Homepage, written by hand apart from the generated blocks between `<!-- BEGIN … -->` / `<!-- END … -->` markers |
 | `projects/*.html` | One page per project, **generated**; don't edit by hand |
 | `data/projects.json` | The project list |
+| `sitemap.xml` | **Generated** by `tools/build.py`: home, project pages, privacy and terms, with `lastmod` from each project's `updated` date and the legal pages' "Last updated" date |
+| `robots.txt` | Allows all crawlers and points at the sitemap. Hand-written |
+| `llms.txt` | A short markdown summary of the site for LLMs. Hand-written, so add new projects to it by hand |
 | `tools/build.py` | Generates the project pages and the homepage's featured cards, workshop table and project count |
 | `css/style.css` | The Daylight Pixel theme |
 | `js/site.js` | Extras: project image previews on hover |

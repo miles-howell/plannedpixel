@@ -5,6 +5,7 @@ Writes:
   projects/<slug>.html   one page per project, with the project's image at the top
   index.html             only the parts between <!-- BEGIN x --> / <!-- END x --> markers:
                          the featured cards, the workshop table and the project count
+  sitemap.xml            the home page, every project page and the legal pages, with lastmod dates
 
 Links to a project carry data-preview="<image>", which js/site.js shows as a hover preview.
 
@@ -219,6 +220,31 @@ def replace_between(text, name, content):
     return pattern.sub(lambda m: f"{m.group(1)}{content}{m.group(3)}", text)
 
 
+def legal_date(name):
+    """The date in a legal page's <time datetime="..."> element."""
+    text = (ROOT / name).read_text(encoding="utf-8")
+    match = re.search(r'<p class="legal-date">.*?<time datetime="(\d{4}-\d{2}-\d{2})"', text, re.S)
+    if not match:
+        sys.exit(f"{name}: couldn't find its Last updated date")
+    return match.group(1)
+
+
+def sitemap(projects):
+    """sitemap.xml: home, project pages and legal pages. 404.html is left out on purpose."""
+    pages = [("", max(p["updated"] for p in projects))]
+    pages += [(f"projects/{p['slug']}.html", p["updated"]) for p in projects]
+    pages += [(name, legal_date(name)) for name in ("privacy.html", "terms.html")]
+    urls = "\n".join(
+        f"  <url><loc>{SITE_URL}/{path}</loc><lastmod>{date}</lastmod></url>" for path, date in pages
+    )
+    return (
+        '<?xml version="1.0" encoding="UTF-8"?>\n'
+        '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
+        f"{urls}\n"
+        "</urlset>\n"
+    )
+
+
 def main():
     projects = json.loads((ROOT / "data" / "projects.json").read_text(encoding="utf-8"))
     slugs = [p["slug"] for p in projects]
@@ -255,7 +281,9 @@ def main():
     index = replace_between(index, "count", str(total))
     index_path.write_text(index, encoding="utf-8")
 
-    print(f"built {total} project pages and index.html")
+    (ROOT / "sitemap.xml").write_text(sitemap(projects), encoding="utf-8")
+
+    print(f"built {total} project pages, index.html and sitemap.xml")
 
 
 if __name__ == "__main__":

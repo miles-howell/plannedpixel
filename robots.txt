@@ -1,0 +1,6 @@
+# plannedpixel.com: everything is public, and all crawlers are welcome,
+# including search engines and AI crawlers.
+User-agent: *
+Allow: /
+
+Sitemap: https://plannedpixel.com/sitemap.xml
