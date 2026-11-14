@@ -56,15 +56,30 @@
 </figure>
 <div class="project-body">
 <p>Squares in Squares is a Kaggle packing competition built on a classic open problem. For every <em>n</em> from 1 to 1000, place <em>n</em> unit squares, at any position and rotation with no overlaps, inside the smallest axis-aligned square you can. The score sums <code>L<sub>n</sub>/√n − 1</code> over every <em>n</em>, so a perfect packing scores zero and every single configuration counts. For most <em>n</em> the best packing is unknown, and the best known ones tend to use oddly tilted squares.</p>
-<p>This repo is my toolkit and submission history. It reimplements the official metric, including the interval-arithmetic check that certifies tilted squares really are disjoint. It parses a public records page of packing diagrams into coordinates, and merges candidate files from public notebooks and my own searches one <em>n</em> at a time, keeping a change only when it is certified valid and strictly better. My own contributions include a fault-line dynamic program and an LP “snap” that tightens near-feasible layouts.</p>
-<p>The submission started at the 28.94 score of a plain grid and now sits at about 22.26.</p>
+<p>This repo is my toolkit and submission history. It reimplements the official metric, including the interval-arithmetic check that certifies tilted squares really are disjoint. It parses a public records page of packing diagrams into coordinates, and merges candidate files from public notebooks, Kaggle datasets and my own searches one <em>n</em> at a time, keeping a change only when it is certified valid and strictly better. My own searches include a fault-line dynamic program that stitches corner gadgets from other packings along a staircase, a corner-touch variant of it, “band surgery” that transplants bands between packings, and an LP “snap” that tightens near-feasible layouts. I also run a GPU island genetic algorithm on rented cloud GPUs. Every new packing feeds the DPs as a donor, so each gain tends to unlock more.</p>
+<p>The submission started at the 28.94 score of a plain grid and now sits at 22.1529. The best known packing for each <em>n</em>, taken across all teams, adds up to about 22.05, and most of the remaining gap is in the larger <em>n</em> just above a perfect square.</p>
 </div>
+<h2 class="h2">Score so far</h2>
+<div class="data-table">
+<table>
+<thead><tr><th scope="col">Submission</th><th scope="col">Score</th></tr></thead>
+<tbody>
+<tr><th scope="row">Plain grid (⌈√n⌉ for every n)</th><td>28.9377</td></tr>
+<tr><th scope="row">Published records only</th><td>25.4828</td></tr>
+<tr><th scope="row">Public starter notebook (my starting point)</th><td>22.2982</td></tr>
+<tr><th scope="row">Current best, 2026-11-14</th><td><strong>22.1529</strong></td></tr>
+<tr><th scope="row">Best known per n across all teams</th><td>22.0509</td></tr>
+</tbody>
+</table>
+</div>
+<p class="data-note">Lower is better. The last row is not one team’s submission: it takes the best packing anyone has posted for each n.</p>
 <h2 class="h2">Highlights</h2>
 <ul class="highlights">
 <li>A local scorer that reproduces the official metric, with float64 screening and certified recheck of close pairs at 60 digits</li>
 <li>A parser that turns the records page’s compact SVG diagrams into unit-square coordinates</li>
-<li>Per-n certified merges, so the best submission never regresses</li>
-<li>Fault-line DP and LP-snap searches for tilted packings</li>
+<li>Per-n certified merges, so the best submission never regresses, with every promotion logged</li>
+<li>Fault-line and corner-touch DPs, band surgery and LP-snap searches for tilted packings</li>
+<li>An island genetic algorithm run on Kaggle and RunPod GPUs</li>
 </ul>
 <div class="project-links">
 <a class="btn" href="https://www.kaggle.com/competitions/squares-in-squares" target="_blank" rel="noopener noreferrer">competition page on Kaggle →</a>
