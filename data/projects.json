@@ -12,7 +12,7 @@
     ],
     "access": "private",
     "year": "2026",
-    "updated": "2026-10-28",
+    "updated": "2026-11-14",
     "links": [
       {
         "label": "competition page on Kaggle",
@@ -25,18 +25,49 @@
     ],
     "body": [
       "Squares in Squares is a Kaggle packing competition built on a classic open problem. For every <em>n</em> from 1 to 1000, place <em>n</em> unit squares, at any position and rotation with no overlaps, inside the smallest axis-aligned square you can. The score sums <code>L<sub>n</sub>/√n − 1</code> over every <em>n</em>, so a perfect packing scores zero and every single configuration counts. For most <em>n</em> the best packing is unknown, and the best known ones tend to use oddly tilted squares.",
-      "This repo is my toolkit and submission history. It reimplements the official metric, including the interval-arithmetic check that certifies tilted squares really are disjoint. It parses a public records page of packing diagrams into coordinates, and merges candidate files from public notebooks and my own searches one <em>n</em> at a time, keeping a change only when it is certified valid and strictly better. My own contributions include a fault-line dynamic program and an LP “snap” that tightens near-feasible layouts.",
-      "The submission started at the 28.94 score of a plain grid and now sits at about 22.26."
+      "This repo is my toolkit and submission history. It reimplements the official metric, including the interval-arithmetic check that certifies tilted squares really are disjoint. It parses a public records page of packing diagrams into coordinates, and merges candidate files from public notebooks, Kaggle datasets and my own searches one <em>n</em> at a time, keeping a change only when it is certified valid and strictly better. My own searches include a fault-line dynamic program that stitches corner gadgets from other packings along a staircase, a corner-touch variant of it, “band surgery” that transplants bands between packings, and an LP “snap” that tightens near-feasible layouts. I also run a GPU island genetic algorithm on rented cloud GPUs. Every new packing feeds the DPs as a donor, so each gain tends to unlock more.",
+      "The submission started at the 28.94 score of a plain grid and now sits at 22.1529. The best known packing for each <em>n</em>, taken across all teams, adds up to about 22.05, and most of the remaining gap is in the larger <em>n</em> just above a perfect square."
     ],
     "highlights": [
       "A local scorer that reproduces the official metric, with float64 screening and certified recheck of close pairs at 60 digits",
       "A parser that turns the records page’s compact SVG diagrams into unit-square coordinates",
-      "Per-n certified merges, so the best submission never regresses",
-      "Fault-line DP and LP-snap searches for tilted packings"
+      "Per-n certified merges, so the best submission never regresses, with every promotion logged",
+      "Fault-line and corner-touch DPs, band surgery and LP-snap searches for tilted packings",
+      "An island genetic algorithm run on Kaggle and RunPod GPUs"
     ],
     "image": "img/projects/squared-squares.svg",
     "image_alt": "Four packings from the current submission, for 11, 19, 29 and 41 unit squares, with the tilted squares in pink and the axis-aligned ones in blue.",
-    "image_caption": "Drawn from the submission’s own certified packings."
+    "image_caption": "Drawn from the submission’s own certified packings.",
+    "table": {
+      "title": "Score so far",
+      "columns": [
+        "Submission",
+        "Score"
+      ],
+      "rows": [
+        [
+          "Plain grid (⌈√n⌉ for every n)",
+          "28.9377"
+        ],
+        [
+          "Published records only",
+          "25.4828"
+        ],
+        [
+          "Public starter notebook (my starting point)",
+          "22.2982"
+        ],
+        [
+          "Current best, 2026-11-14",
+          "<strong>22.1529</strong>"
+        ],
+        [
+          "Best known per n across all teams",
+          "22.0509"
+        ]
+      ],
+      "note": "Lower is better. The last row is not one team’s submission: it takes the best packing anyone has posted for each n."
+    }
   },
   {
     "slug": "shrimple",
@@ -117,22 +148,127 @@
     ],
     "table": {
       "title": "Benchmarks",
-      "columns": ["<em>n</em>", "Digits", "Logarithmic", "Memory", "Dijkstra", "Memory"],
+      "columns": [
+        "<em>n</em>",
+        "Digits",
+        "Logarithmic",
+        "Memory",
+        "Dijkstra",
+        "Memory"
+      ],
       "rows": [
-        ["10<sup>3</sup>", "8", "7 µs", "228 B", "133 µs", "38 KB"],
-        ["10<sup>4</sup>", "18", "14 µs", "264 B", "2.0 ms", "422 KB"],
-        ["10<sup>5</sup>", "39", "37 µs", "248 B", "18.2 ms", "5 MB"],
-        ["10<sup>6</sup>", "84", "141 µs", "404 B", "214.5 ms", "63 MB"],
-        ["10<sup>7</sup>", "182", "505 µs", "388 B", "2.42 s", "934 MB"],
-        ["10<sup>8</sup>", "392", "2.2 ms", "892 B", "—", "—"],
-        ["10<sup>9</sup>", "844", "11.4 ms", "9 KB", "—", "—"],
-        ["10<sup>10</sup>", "1,819", "17.3 ms", "65 KB", "—", "—"],
-        ["10<sup>11</sup>", "3,920", "71.2 ms", "2 KB", "—", "—"],
-        ["10<sup>12</sup>", "8,445", "241.8 ms", "14 KB", "—", "—"],
-        ["10<sup>13</sup>", "18,195", "1.12 s", "—", "—", "—"],
-        ["10<sup>14</sup>", "39,199", "6.13 s", "—", "—", "—"],
-        ["10<sup>15</sup>", "84,453", "24.43 s", "—", "—", "—"],
-        ["10<sup>16</sup>", "181,949", "107.16 s", "—", "—", "—"]
+        [
+          "10<sup>3</sup>",
+          "8",
+          "7 µs",
+          "228 B",
+          "133 µs",
+          "38 KB"
+        ],
+        [
+          "10<sup>4</sup>",
+          "18",
+          "14 µs",
+          "264 B",
+          "2.0 ms",
+          "422 KB"
+        ],
+        [
+          "10<sup>5</sup>",
+          "39",
+          "37 µs",
+          "248 B",
+          "18.2 ms",
+          "5 MB"
+        ],
+        [
+          "10<sup>6</sup>",
+          "84",
+          "141 µs",
+          "404 B",
+          "214.5 ms",
+          "63 MB"
+        ],
+        [
+          "10<sup>7</sup>",
+          "182",
+          "505 µs",
+          "388 B",
+          "2.42 s",
+          "934 MB"
+        ],
+        [
+          "10<sup>8</sup>",
+          "392",
+          "2.2 ms",
+          "892 B",
+          "—",
+          "—"
+        ],
+        [
+          "10<sup>9</sup>",
+          "844",
+          "11.4 ms",
+          "9 KB",
+          "—",
+          "—"
+        ],
+        [
+          "10<sup>10</sup>",
+          "1,819",
+          "17.3 ms",
+          "65 KB",
+          "—",
+          "—"
+        ],
+        [
+          "10<sup>11</sup>",
+          "3,920",
+          "71.2 ms",
+          "2 KB",
+          "—",
+          "—"
+        ],
+        [
+          "10<sup>12</sup>",
+          "8,445",
+          "241.8 ms",
+          "14 KB",
+          "—",
+          "—"
+        ],
+        [
+          "10<sup>13</sup>",
+          "18,195",
+          "1.12 s",
+          "—",
+          "—",
+          "—"
+        ],
+        [
+          "10<sup>14</sup>",
+          "39,199",
+          "6.13 s",
+          "—",
+          "—",
+          "—"
+        ],
+        [
+          "10<sup>15</sup>",
+          "84,453",
+          "24.43 s",
+          "—",
+          "—",
+          "—"
+        ],
+        [
+          "10<sup>16</sup>",
+          "181,949",
+          "107.16 s",
+          "—",
+          "—",
+          "—"
+        ]
       ],
       "note": "Median of repeated runs (5 up to ten million, 3 at 10<sup>8</sup>, a single run from 10<sup>9</sup>) on a Runpod CPU pod with an AMD EPYC 9575F, 8 vCPU, CPython 3.13, using the C extension; peak memory is the Python heap from tracemalloc, skipped from 10<sup>13</sup>. The logarithmic method is ahead at every size, about 4,800× faster than Dijkstra at ten million with some 2.4 million times less memory, and time grows roughly 4–5.5× per tenfold increase in <em>n</em> at the top end, close to the 4.6× that the <em>n</em><sup>2/3</sup> cost of a count predicts. Dijkstra wasn’t run past ten million, where it already needs almost a gigabyte. Every answer was checked against Dijkstra up to 20,000 and the known values for the millionth and billionth, and every row was confirmed by the exact rank checker."
     },
